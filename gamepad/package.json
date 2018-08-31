@@ -1,0 +1,16 @@
+{
+  "name": "gamepad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "sudo /home/nvidia/.nvm/versions/node/v10*/bin/node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dualshock-controller": "file:node-dualshock-controller",
+    "node-hid": "^0.7.3",
+    "node-pty": "^0.7.6"
+  }
+}
