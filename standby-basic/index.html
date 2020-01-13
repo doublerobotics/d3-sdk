@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Basic Standby Example</title>
+	<link href="index.css" rel="stylesheet" />
+	<script src="index.js"></script>
+</head>
+<body>
+	<div id="root">
+		<h1>Basic Standby Example</h1>
+		<h2>Network</h2>
+		<table class="data">
+			<tr>
+				<td>SSID</td>
+				<td id="wifi_ssid"></td>
+			</tr>
+			<tr>
+				<td>IP</td>
+				<td id="wifi_ip"></td>
+			</tr>
+		</table>
+		<br>
+		<h2>Base</h2>
+		<table class="data">
+			<tr>
+				<td>Pole</td>
+				<td>
+					<input type="button" value="Up" onclick="DRDoubleSDK.sendCommand('base.pole.stand')">
+					<input type="button" value="Down" onclick="DRDoubleSDK.sendCommand('base.pole.sit')">
+					<input type="button" value="Stop" onclick="DRDoubleSDK.sendCommand('base.pole.stop')">
+				</td>
+			</tr>
+			<tr>
+				<td>Kickstand</td>
+				<td>
+					<input type="button" value="Retract" onclick="DRDoubleSDK.sendCommand('base.kickstand.retract')">
+					<input type="button" value="Deploy" onclick="DRDoubleSDK.sendCommand('base.kickstand.deploy')">
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
