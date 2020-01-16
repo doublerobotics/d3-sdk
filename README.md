@@ -14,3 +14,9 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ht
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
 
 ![D3 System Diagram](system-diagram-preview.png "D3 System Diagram")
+
+## Debug Monitor
+
+When in developer mode, this tool is accessible over your local network to see and control what your D3 is doing. This tool uses the same [API commands](api.md) that you will use in your standby screen or native application to communicate with the D3 system.
+
+![D3 Debug Monitor](monitor-preview.png "D3 Debug Monitor")
