@@ -6,7 +6,7 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ht
 
 ## Examples
 
-1. [standby-basic](standby-basic) - This example shows the most basic usage of displaying a page on screen, sending commands via DRDoubleSDK and processing incoming events.
+1. [standby-basic](examples/standby-basic) - This example shows the most basic usage of displaying a page on screen, sending commands via DRDoubleSDK and processing incoming events.
 
 ## Documentation
 
