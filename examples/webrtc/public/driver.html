@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Double 3 WebRTC: Driver</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://webrtchacks.github.io/adapter/adapter-latest.js"></script>
+    <script src="/driver_webrtc.js" type="module"></script>
+    <script src="/driver.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <h1>D3 WebRTC Example: Driver</h1>
+      <p>This example shows how to orchestrate a WebRTC call on <a href="https://www.doublerobotics.com" target="_blank">Double 3</a> using a custom standby screen and the native WebRTC implementation that takes advantage of the hardware h264 encoder. Your robot must be in developer mode.</p>
+    </header>
+
+    <main>
+      <div class="streams">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay muted style="width: 480px;"></video>
+      </div>
+      <ol>
+
+        <li><input type="button" onclick="window.location='https://glitch.com/edit/#!/remix/d3-webrtc-example';" value="Remix this on Glitch">, so you create your own app. Loading the shared version (<a href="https://d3-webrtc-example.glitch.me">d3-webrtc-example.glitch.me</a>) onto your robot will expose your robot to anyone else who loads this page!</li>
+        
+        <li>In the Glitch editor top bar, click Show &gt; In a New Window to open this driver page on your computer.</li>
+        
+        <li>
+          Load custom robot Standby GUI (http://<span style="color: #929292;">ROBOT_LOCAL_IP</span>:8080/ &gt; Dashboard &gt; Standby GUI &gt; GO):<br>
+          <input type="text" value="" size="50" id="urlBox" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        </li>
+        
+        <li class="optional">
+          Optional:
+          <input type="button" value="Check for Robot" onclick="checkForRobot()">
+          &nbsp;<span id="robotAvailability"></span>
+        </li>
+
+        <li class="optional">
+          Optional:
+          <input type="button" value="List Webcams" onclick="listWebcams()">
+          <select id="cameras" onchange="updateLocalVideo()"></select>
+          <select id="mics" onchange="updateLocalVideo()"></select>
+          <input type="button" value="Clear" onclick="endLocalVideo()">
+        </li>
+
+        <li class="optional">
+          Optional:
+          Set your own STUN/TURN servers<br>
+          <textarea id="iceConfig" rows="11" style="width: 500px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">{
+  "iceTransportPolicy": "all",
+  "iceServers": [
+    { "urls": [ "stun:rtc-oregon.doublerobotics.com:443" ] },
+    {
+      "urls": [ "turn:rtc-oregon.doublerobotics.com:443" ],
+      "username": "open",
+      "credential": "open"
+    }
+  ]
+}</textarea>
+        </li>
+
+        <li>
+          <input type="button" value="Call" onclick="startCall()">
+          <input type="button" value="Hang Up" onclick="endCall()">
+        </li>
+
+        <li class="optional">
+          Optional: Add robot controls, such as Pole 
+          <a href="javascript:sendToServer({ type: 'poleStand' })">Stand</a>,
+          <a href="javascript:sendToServer({ type: 'poleSit' })">Sit</a>,
+          <a href="javascript:sendToServer({ type: 'poleStop' })">Stop</a>
+<!--           <input type="button" value="Stand" onclick="sendToServer({ type: 'poleStand' })">
+          <input type="button" value="Sit" onclick="sendToServer({ type: 'poleSit' })">
+          <input type="button" value="Stop" onclick="sendToServer({ type: 'poleStop' })"> -->
+        </li>
+
+      </ol>
+      <hr>
+      <div id="logs"></div>
+    </main>
+    
+    <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:2em;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

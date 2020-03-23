@@ -1,0 +1,114 @@
+/* this file is loaded by index.html and styles the page */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 2em 1em;
+  line-height: 1.5em;
+}
+
+h1 {
+  font-style: italic;
+  color: #373fff;
+  max-width: calc(100% - 5rem);
+  line-height: 1.1;
+}
+
+form {
+  background-color: #eee;
+  display: grid;
+  grid-gap: 1em;
+  padding: 1em;
+  max-width: 40ch;
+}
+
+input {
+  border: 1px solid silver;
+  display: inline;
+  font-size: 16px;
+  padding: 5px 10px;
+  width: auto;
+}
+
+input[type=button] {
+  border: 1px solid #003758;
+  background: #dff3ff;
+  color: #003758;
+}
+
+input[type=button]:hover {
+  background: #c9ebff;
+}
+
+select {
+  font-size: 16px;
+}
+
+textarea {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+form button {
+  background-color: #bbbbf2;
+  border: 2px solid currentColor;
+  border-radius: .25em;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: 1.4em;
+  padding: 0.25em 1em;
+  max-width: 20ch;
+}
+
+form button:hover {
+  background-color: lavender;
+}
+
+ol {
+  padding-left: 25px;
+}
+
+ol li {
+  line-height: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+.optional {
+  color: #929292;
+  margin-right: 5px;
+}
+
+hr {
+  background: lightgrey;
+  border: none;
+  height: 1px;
+  margin: 1.5em 0px;
+}
+
+footer {
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgrey;
+}
+
+.streams {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
+.streams video {
+  background: #EEEEEE;
+  display: block;
+  height: 300px;
+  margin-right: 15px;
+  width: 400px;
+}
+
+#logs div {
+  font-family: monospace;
+  white-space: pre;
+}
