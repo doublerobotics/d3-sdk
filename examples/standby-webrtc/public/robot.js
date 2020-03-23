@@ -35,13 +35,17 @@ function connectWebsocket() {
           log("Received availability check");
           break;
 
+        case "preheat":
+          DRDoubleSDK.sendCommand("camera.enable", { template: "preheat" });
+          break;
+          
         case "startCall":
           log("startCall");
-          DRDoubleSDK.sendCommand("webrtc.enable");
-          DRDoubleSDK.sendCommand("camera.enable", { template: "h264ForWebRTC" });
-          window.setTimeout(() => {
-            DRDoubleSDK.sendCommand("webrtc.signal", signal);
-          }, 1000);
+          DRDoubleSDK.sendCommand("webrtc.enable", {
+            servers: signal.servers,
+            transportPolicy: signal.transportPolicy || "all",
+            manageCamera: true
+          });
           break;
 
         case "endCall":
@@ -65,6 +69,16 @@ function connectWebsocket() {
         case "poleStop":
           DRDoubleSDK.sendCommand("base.pole.stop");
           break;
+          
+        case "enableNavigation":
+          DRDoubleSDK.sendCommand("navigate.enable");
+          break;
+
+        case "relativeTarget":
+          if (signal.hasOwnProperty("x") && signal.hasOwnProperty("y")) {
+            DRDoubleSDK.sendCommand("navigate.target", { relative: true, x: signal.x, y: signal.y });
+          }
+          break;
       }
     }
   };
@@ -77,8 +91,8 @@ function sendToServer(message) {
 
 function endCall() {
   log("endCall");
-  DRDoubleSDK.sendCommand("camera.disable");
   DRDoubleSDK.sendCommand("webrtc.disable");
+  DRDoubleSDK.sendCommand("navigate.disable");
 }
 
 // DRDoubleSDK is preloaded in the web view on the robot, so it will show errors on the Glitch.com editor
