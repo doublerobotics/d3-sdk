@@ -2,6 +2,8 @@
 
 This example shows how to orchestrate a WebRTC call on [Double 3](https://www.doublerobotics.com) using a custom standby screen and the native WebRTC implementation that takes advantage of the hardware h264 encoder. Your robot must be in developer mode.
 
+The Glitch app creates a Node.js server that passes signaling. It also serves separate pages for the robot standby screen and the driver. Both pages connect to the server via WebSocket and pass the signals back and forth. The robot page assumes that the DRDoubleSDK javascript global object is loaded in the page, so it will work only on a Double 3.
+
 More documentation on github: [https://github.com/doublerobotics/d3-sdk](https://github.com/doublerobotics/d3-sdk)
 
 ## Getting Started
