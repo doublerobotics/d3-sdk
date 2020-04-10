@@ -11,7 +11,7 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ht
 
 ## Documentation
 
-- [API.md](API.md) lists all commands and events.
+- [docs/API.md](docs/API.md) lists all commands and events.
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
