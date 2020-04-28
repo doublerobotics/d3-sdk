@@ -21,7 +21,7 @@ You can see the rules that you've added with `sudo ufw show added`.
 
 ### Switch to Public Key SSH 
 
-At a minimum, you should change your ssh password to something long and custom (`passwd` in a terminal), but a more secure authentication method is to switch to public key (certificate-based) SSH. This is the common for linux servers and simple to set up. [Digital Ocean has a thorough tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804).
+At a minimum, you should change your ssh password to something long and custom (`passwd` in a terminal), but a more secure authentication method is to switch to public key (certificate-based) SSH. This is very common for linux servers and simple to set up. [Digital Ocean has a thorough tutorial](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804).
 
 ### USB Ports
 
