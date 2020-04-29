@@ -29,7 +29,7 @@ Send to the socket:
 
 ## Event Structure
 
-Events are sent from the d3 service to your application. You will receive only the events that you have subscribed to (see below). These may be sent immediate after a command requests certain data, may be a frequently sent stream of data, like the IMU data, or they may be sent automatically based on changes in data (like the robot base's battery level). 
+[Events](https://github.com/doublerobotics/d3-sdk/blob/master/docs/API.md#events-1) are sent from the d3 service to your application. You will receive only the events that you have subscribed to (see below). These may be sent immediate after a command requests certain data, may be a frequently sent stream of data, like the IMU data, or they may be sent automatically based on changes in data (like the robot base's battery level). 
 
 All event packets include three string properties: `timestamp` in UTC time, `class` (indicating where it's coming from), and `key` (the specific type of packet). Some packets will also include a `data` property.
 
