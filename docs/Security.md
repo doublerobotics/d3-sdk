@@ -1,13 +1,22 @@
 # Double 3 Security
 
-D3 is secured by two primary methods:
+All D3s ship in a secured state, with all inbound traffic on all ports blocked and the USB ports on the back of the device disabled. The only way to interact with the device is through the touch screen, which has the standard feature set intended for end users. Once connected to the internet, D3 establishes a secure connection to the Double servers.
+
+D3 is secured by three primary methods:
 
 - Firewall that is configured to block all incoming traffic
+- No user accounts with SSH access
 - USB ports are disabled
 
-## Maintaining Security without Developer Mode
+## Security in Developer Mode
 
-When exiting developer mode (editing `/etc/d3/startup.json`), the firewall is automatically enabled and USB ports are disabled. You can maintain SSH access while ensuring security of the device when exiting developer mode (to deploy the unit to a real-world use case) by customizing the firewall.
+In developer mode, the firewall is disabled completely, the `double` user is created and given SSH access, and the USB ports on the back of the device are enabled. This is insecure, so you should run in developer mode only on a trusted private WiFi network.
+
+## Maintaining Access when Exiting Developer Mode
+
+When [exiting developer mode](Developer Mode.md), the firewall is automatically enabled and USB ports are disabled. The `double` user account is not changed, but you may change this as you wish – it is not required for the core system to function.
+
+You can maintain SSH access while ensuring security of the device when exiting developer mode (to deploy the unit to a real-world use case) by customizing the firewall.
 
 #### Customize the Firewall
 
@@ -32,31 +41,3 @@ If you want to enable the USB ports on startup, even after you exit developer mo
     ...
     { "c": "system.enableRearUSBPorts", "delayMs": 1000 },
     ...
-
-## Exit Developer Mode
-
-You can exit developer mode by editing the file startup file:
-
-    sudo vi /etc/d3/startup.json
-
-Edit the `DEBUG_MODE` config parameter to be `false` (with vi, `i` for insert mode):
-
-    {
-       "config":{
-          "DEBUG_MODE": false
-       },
-       "commands":[
-          { "c": "events.server.enable" },
-          { "c": "gui.enable" },
-          { "c": "screensaver.allow" },
-          { "c": "network.requestLocation" },
-          { "c": "endpoint.enable", "delayMs": 2000 }
-       ]
-    }
-
-**Before rebooting, make sure that you really want to exit developer mode. If you still want to have SSH access to your device, you must first follow the instructions above to allow access through the firewall.** Enabling developer mode will re-enable the firewall and disable the USB ports. To regain access to your device, you will need to contact Double Robotics again to request re-enabling developer mode.
-
-Save the file (with vi, `esc` `ZZ`).
-
-    sudo reboot
-
