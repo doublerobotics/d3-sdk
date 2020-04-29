@@ -1,4 +1,4 @@
-# Double 3 Developer Examples
+# Double 3 Developer SDK
 
 First, your Double 3 will need to be put into developer mode. Please contact support@doublerobotics.com to do this.
 
