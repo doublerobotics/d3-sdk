@@ -12,6 +12,8 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ht
 ## Documentation
 
 - [docs/API.md](docs/API.md) lists all commands and events.
+- [docs/Developer Mode.md](docs/Developer%20Mode.md) describes entering and exiting developer mode.
+- [docs/Security.md](docs/Security.md) discusses security measures and how to maintain security when deploying.
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
