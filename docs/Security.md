@@ -14,7 +14,7 @@ In developer mode, the firewall is disabled completely, the `double` user is cre
 
 ## Maintaining Access when Exiting Developer Mode
 
-When [exiting developer mode](Developer Mode.md), the firewall is automatically enabled and USB ports are disabled. The `double` user account is not changed, but you may change this as you wish – it is not required for the core system to function.
+When [exiting developer mode](Developer%20Mode.md), the firewall is automatically enabled and USB ports are disabled. The `double` user account is not changed, but you may change this as you wish – it is not required for the core system to function.
 
 You can maintain SSH access while ensuring security of the device when exiting developer mode (to deploy the unit to a real-world use case) by customizing the firewall.
 
@@ -41,3 +41,5 @@ If you want to enable the USB ports on startup, even after you exit developer mo
     ...
     { "c": "system.enableRearUSBPorts", "delayMs": 1000 },
     ...
+
+[See how to enter and exit developer mode.](Developer%20Mode.md)
