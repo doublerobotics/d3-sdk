@@ -18,6 +18,7 @@ The core D3 software runs as a system service called `d3`. Your code will intera
 - [Communication.md](docs/Communication.md) describes the command and event JSON packet structures.
 - [Developer Mode.md](docs/Developer%20Mode.md) describes entering and exiting developer mode.
 - [Security.md](docs/Security.md) discusses security measures and how to maintain security when deploying.
+- [Startup.md](docs/Startup.md) describes how to customize what runs on boot.
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
