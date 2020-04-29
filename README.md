@@ -12,7 +12,7 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ht
 ## Documentation
 
 - [API.md](docs/API.md) lists all commands and events.
-- [Communication.md](docs/Communication.md) describes the command and event packets used to communicate over the socket connection to the d3 service.
+- [Communication.md](docs/Communication.md) describes the command and event JSON packet structures.
 - [Developer Mode.md](docs/Developer%20Mode.md) describes entering and exiting developer mode.
 - [Security.md](docs/Security.md) discusses security measures and how to maintain security when deploying.
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
