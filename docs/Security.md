@@ -10,7 +10,7 @@ D3 is secured by three primary methods:
 
 ## Security in Developer Mode
 
-In developer mode, the firewall is disabled completely, the `double` user is created and given SSH access, and the USB ports on the back of the device are enabled. This is insecure, so you should run in developer mode only on a trusted private WiFi network.
+When [entering developer mode](Developer%20Mode.md), the firewall is disabled completely, the `double` user is created and given SSH access, and the USB ports on the back of the device are enabled. This is insecure, so you should run in developer mode only on a trusted private WiFi network.
 
 ## Maintaining Access when Exiting Developer Mode
 
