@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Camera Example</title>
+		<style>
+			body {
+				font-family: "FreeSans", sans-serif;
+			}
+			video {
+				background: black;
+				bottom: 0px;
+				display: block;
+				height: 100%;
+				left: 0px;
+				object-fit: contain;
+				position: fixed;
+				right: 0px;
+				top: 0px;
+				width: 100%;
+			}
+			#info {
+				bottom: 100px;
+				color: white;
+				font-size: 3em;
+				left: 0px;
+				min-height: 100px;
+				position: fixed;
+				text-align: center;
+				width: 100%;
+			}
+		</style>
+		<script>
+			async function setup() {
+				var stream = await navigator.mediaDevices.getUserMedia({ video: true }).catch(e => {
+					document.write(e.message);
+				});
+				var video = document.querySelector("video");
+				var info = document.querySelector("#info");
+				video.srcObject = stream;
+				video.onloadedmetadata = (e) => {
+					info.innerText = video.videoWidth +" x "+ video.videoHeight;
+					info.style.zIndex = 2;
+				};
+			}
+		</script>
+	</head>
+	<body onload="setup()">
+		<video autoplay playsinline muted></video>
+		<div id="info"></div>
+	</body>
+</html>
