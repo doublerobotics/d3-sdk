@@ -10,7 +10,7 @@ To enter developer mode, you must first link the D3 with your Double account, th
 
 ## Exiting Developer Mode
 
-You can exit developer mode by editing the file startup file `/etc/d3/startup.json`. Set the `DEBUG_MODE` config parameter to be `false`, so the file looks something like this:
+You can exit developer mode by editing the startup file `/etc/d3/startup.json`. Set the `DEBUG_MODE` config parameter to be `false`, so the file looks something like this:
 
     {
        "config":{
