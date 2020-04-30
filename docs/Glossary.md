@@ -18,6 +18,9 @@ Double 2 and the first generation Double are previous version of the product, wh
 #### Driver Interface
 This generally refers to Double's driver clients on the web ([drive.doublerobotics.com](https://drive.doublerobotics.com)) and the [Double app for iOS](https://apps.apple.com/us/app/double/id589230178). The driver interfaces do not have many ways for developers to customize them. If you need a highly customized experience, you can build your own web service and driver interfaces, such as in our [standby-webrtc](../examples/standby-webrtc) example.
 
+#### Endpoint
+This is the section of the core d3 service that connects to Double's signaling servers to accept and facilitate calls from the driver interfaces. You can choose to disable this completely, if you're going to build your own servers or run autonomous applications locally. You can also keep the Endpoint enabled to allow users to call from the Double system, while still creating a custom standby screen that adds your own functionality to the device.
+
 #### Events
 Your application (native or a custom standby screen) receives these from the d3 service. [See more](Communication.md)
 
