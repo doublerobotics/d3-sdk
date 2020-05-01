@@ -2,11 +2,13 @@
 
 Before accessing any developer features, your Double 3 will need to be [put into developer mode](docs/Developer%20Mode.md).
 
-## Developer Monitor
+## Debug Monitor
 
-The Developer Monitor allows you to view and control all of your Double's features from a web interface.  The Developer Monitor is a page hosted by an internal server on your D3.  
+The Debug Monitor allows you to view and control all of your Double's features from a web interface.  The Developer Monitor is a page hosted by an internal server on your D3.  
 
-Open the Developer Monitor of your D3 in Chrome on your computer by visiting: http://YOUR_D3_IP:8080. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.
+Open the Debug Monitor of your D3 in Chrome on your computer by visiting: http://YOUR_D3_IP:8080. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.  This tool uses the same [API commands](api.md) that you can use in a custom application to communicate with the D3 system.  The Debug Monitor is a great way to test the functionality of commands before writing any code.
+
+![D3 Debug Monitor](monitor-preview.png "D3 Debug Monitor")
 
 ## Hardware
 
@@ -48,8 +50,3 @@ With a native application, you can get access to raw sensor data, such as direct
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
 
-## Debug Monitor
-
-When in developer mode, this tool is accessible over your local network to see and control what your D3 is doing. This tool uses the same [API commands](api.md) that you will use in your standby screen or native application to communicate with the D3 system.
-
-![D3 Debug Monitor](monitor-preview.png "D3 Debug Monitor")
