@@ -32,5 +32,17 @@ There is a bug in Chrome DevTools while the "screencast" feature is on (the defa
 
 ### Launching Your Standby Screen on Startup
 
-In order to make your new standby screen launch when your D3 starts up, you will need to modify the startup-default.json.
+In order to make your new standby screen launch when your D3 starts up, you will need to [modify the startup-default.json](../../docs/Startup.md).  SSH into your D3 and edit the file `/etc/d3/startup.json`.  Add the property called STANDBY_URL in the "config" section, with a value containing the URL of your standby screen.
 
+    {
+       "config":{
+          "STANDBY_URL": "http://YOUR-PAGE.com/"
+       },
+       "commands":[
+          { "c": "events.server.enable" },
+          { "c": "gui.enable" },
+          { "c": "screensaver.allow" },
+          { "c": "network.requestLocation" },
+          { "c": "endpoint.enable", "delayMs": 2000 }
+       ]
+    }
