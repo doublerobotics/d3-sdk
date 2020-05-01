@@ -36,6 +36,7 @@ In order to make your new standby screen launch when your D3 starts up, you will
 
     {
        "config":{
+          "DEBUG_MODE": true,
           "STANDBY_URL": "http://YOUR-PAGE.com/"
        },
        "commands":[
