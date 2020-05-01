@@ -30,7 +30,7 @@ In order to easily debug your web application as it runs on your D3, you can ope
 
 There is a bug in Chrome DevTools while the "screencast" feature is on (the default). Rendering on the remote device (D3 screen) sometimes does not update. We recommend turning off the screencast - click the phone/tablet devices icon. You can still refresh your target page by using the key command (i.e. cmd + R).
 
-### Launching Your Standby Screen on Startup
+## Launching Your Standby Screen on Startup
 
 In order to make your new standby screen launch when your D3 starts up, you will need to [modify the startup.json](../../docs/Startup.md).  SSH into your D3 and edit the file `/etc/d3/startup.json`.  Add the property called STANDBY_URL in the "config" section, with a value containing the URL of your standby screen.
 
