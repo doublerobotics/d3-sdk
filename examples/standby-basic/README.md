@@ -1,10 +1,12 @@
 # Basic Standby Screen
 
-First, your Double 3 will need to be put into developer mode. Please contact support@doublerobotics.com to do this.
+Before accessing any developer features, your Double 3 will need to be [put into developer mode](docs/Developer%20Mode.md).
+
+This page explains how to display a custom, interactive screen on your Double 3's touchscreen using HTML and Javascript.
 
 Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ````http://YOUR_D3_IP:8080````. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.
 
-## Host These Files
+## Host Your Files
 
 Upload your files to a web server or launch a web server on your local computer. You can do that easily in a terminal by changing to this repository directory and [running a static web server](https://gist.github.com/willurd/5720255), such as:
 
