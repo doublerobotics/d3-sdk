@@ -8,7 +8,7 @@ Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ``
 
 ## Host Your Files
 
-Upload your files to a web server or launch a web server on your local computer. You can do that easily in a terminal by changing to this repository directory and [running a static web server](https://gist.github.com/willurd/5720255), such as:
+Upload the files from this example to a web server or launch a web server on your local computer. You can do that easily in a terminal by changing to this repository directory and [running a static web server](https://gist.github.com/willurd/5720255), such as:
 
 python 2:
 
@@ -47,3 +47,7 @@ In order to make your new standby screen launch when your D3 starts up, you will
           { "c": "endpoint.enable", "delayMs": 2000 }
        ]
     }
+
+## Adding More Functionality
+
+As you can see from this example, your new standby screen does not just have to be static HTML.  It can be a fully functioning web application using JavaScript, and your code can interface with your Double.  To discover all of the functionality, you can read more about [Communicating with your Double](../../docs/Communication.md) and browse the [API Documentation](../../docs/API.md) for a full list of commands and events.
