@@ -1,6 +1,6 @@
 # Basic Standby Screen
 
-Before accessing any developer features, your Double 3 will need to be [put into developer mode](docs/Developer%20Mode.md).
+Before accessing any developer features, your Double 3 will need to be [put into developer mode](../../docs/Developer%20Mode.md).
 
 This page explains how to display a custom, interactive screen on your Double 3's touchscreen using HTML and Javascript.
 
