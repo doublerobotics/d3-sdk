@@ -20,6 +20,8 @@ or python 3:
 
 Type the address of your web server (````http://YOUR_COMPUTER_IP:8000/````) into the Standby GUI input field and click the "Go" button.
 
+![D3 Debug Monitor - Standby URL](monitor-standby-url.png "D3 Debug Monitor - Standby URL")
+
 ## Chrome DevTools
 
 You will likely want to open the Chrome DevTools window, which you can do by marking the Debug checkbox and Disable, then Enable the Standby GUI. A link will appear, which is something like: ````http://YOUR_D3_IP:5555````
