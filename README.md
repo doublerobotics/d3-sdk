@@ -1,14 +1,22 @@
 # Double 3 Developer SDK
 
-First, your Double 3 will need to be [put into developer mode](docs/Developer%20Mode.md).
+Before accessing any developer features, your Double 3 will need to be [put into developer mode](docs/Developer%20Mode.md).
+
+## Developer Monitor
+
+The Developer Monitor allows you to view and control all of your Double's features from a web interface.  The Developer Monitor is a page hosted by an internal server on your D3.  
 
 Open the Developer Monitor of your D3 in Chrome on your computer by visiting: http://YOUR_D3_IP:8080. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.
 
-The core D3 software runs as a system service called `d3`. Your code will interact with this service by sending commands and receiving events. All commands and events are sent over a standard Unix domain socket. See more about [communicating with the D3 service](docs/Communicating.md).
+## Hardware
+
+Double 3 is powered by an Nvidia Jetson TX2-4GB System-on-Module connected to various built-in [sensors and devices](https://www.doublerobotics.com/tech-specs.html).  The hardware is similar to an Nvidia [Jetson TX2 Dev Kit](https://developer.nvidia.com/embedded/jetson-tx2-developer-kit) with added peripherals.
 
 ## Custom Applications
 
-You can write and deploy your own custom code on your D3. The D3 head runs Ubuntu 18.04 on an Nvidia TX2 4GB module, so you can write code in any language that runs on that platform.
+You can write and deploy your own custom code on your D3. The D3 head runs Ubuntu 18.04 on an Nvidia TX2-4GB module, so you can write code in any language that runs on that platform.
+
+The core D3 software runs as a system service called `d3`. Your code will interact with this service by sending commands and receiving events. All commands and events are sent over a standard Unix domain socket. See more about [communicating with the D3 service](docs/Communicating.md).
 
 #### HTML Applications
 
