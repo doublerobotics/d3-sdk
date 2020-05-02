@@ -8,3 +8,4 @@ or
 
     python3 example.py
 
+`ctrl+c` to exit
