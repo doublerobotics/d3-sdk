@@ -2,9 +2,16 @@
 
 While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in the on-screen user interface of Double 3, some network types, such as EAP-TLS, require installing certificates to the device or other custom settings. You'll need to talk with your network admin to get the certificate file(s) and the details of the network configuration.
 
-In developer mode, you can copy the certificate(s) to Double via a USB drive or, if you can temporarily join a different WiFi network, then you can copy them over your local network.
+In developer mode, you can copy the certificate(s) to D3 via a USB drive (remove the access panel on the back):
 
-You can copy the file(s) to D3 via scp, like this:
+    lsblk # look for your drive, likely /dev/sda1
+    sudo mkdir /media/usb
+    sudo mount /dev/sda1 /media/usb
+    sudo mkdir /etc/pki/my-wifi
+    sudo cp /dev/sda1/bin3.zip /etc/pki/my-wifi
+    sudo umount /media/usb
+
+Or, if you can temporarily join a different WiFi network, you can copy them over your local network via scp (from MacOS or Linux):
 
     scp client.crt double@x.x.x.x:~/
 
