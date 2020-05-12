@@ -40,8 +40,6 @@ function exitHandler(options, exitCode) {
 process.on('exit', exitHandler.bind(null, {cleanup:true}));
 process.on('SIGINT', exitHandler.bind(null, {cleanup:true, exit:true})); // catches ctrl+c event
 process.on('SIGTERM', exitHandler.bind(null, {cleanup:true, exit:true})); // catches SIGTERM event
-process.on('SIGUSR1', exitHandler.bind(null, {cleanup:true, exit:true})); // catches "kill pid"
-process.on('SIGUSR2', exitHandler.bind(null, {cleanup:true, exit:true})); // catches "kill pid"
 process.on('uncaughtException', exitHandler.bind(null, {cleanup:true, exit:true})); // catches uncaught exceptions
 
 d3.connect();
