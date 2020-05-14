@@ -34,9 +34,9 @@ Add the connection via nmcli:
 
 Complete documentation and descriptions of each parameter are on the [nmcli user manual's 802.1x page](https://developer.gnome.org/NetworkManager/stable/settings-802-1x.html).
 
-Attempt to connect using this connection:
+You must first disconnect wlan0 before attempting to connect using this connection (all in one line, so it's sent before it disconnects):
 
-    sudo nmcli connection up 'My Network'
+    sudo nmcli device disconnect wlan0 && sleep 5 && sudo nmcli connection up 'My Network'
 
 If successful and you want to delete any other network, you can do that with:
 
