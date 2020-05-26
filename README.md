@@ -22,7 +22,7 @@ Most applications can be HTML applications. You have access to cameras, micropho
 
 You can also write applications in any other language that will run on the device, such as Python, C++, or Go. However, you will need to manage launching your application on boot. If you choose to do this, you can disable the default GUI from launching on boot.
 
-With a native application, you can get access to raw sensor data, such as direct access to the RealSense D435 depth sensors. You could also create a user interface using any GUI toolkit that you prefer.
+With a native application, you can get access to raw sensor data, such as direct access to the RealSense D430 depth sensors. You could also create a user interface using any GUI toolkit that you prefer.
 
 ## Examples
 
