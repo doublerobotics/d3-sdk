@@ -1,13 +1,14 @@
 # D3 API
-API Version: 1.0.0
-
+API Version: 1.0.26
 ## Commands
-[api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
-
+[api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
 ### api
 - api.requestStatus
 - api.requestLocalConfiguration
 - api.requestRemoteConfiguration
+- api.setConfig
+  - parameters: ```{key:'STANDBY_URL',value:'https://standby.doublerobotics.com'}```
+  - Restart service is required (system.restartService). To delete key, send value null or don't include value at all.
 
 ### base
 - base.requestVersion
@@ -45,6 +46,8 @@ API Version: 1.0.0
   - parameters: ```{degrees:-23}```
 - calibration.set.cameraTiltMax
   - parameters: ```{degrees:30}```
+- calibration.set.imuRoll
+  - parameters: ```{degrees:0}```
 - calibration.set.frontDepthRoll
   - parameters: ```{degrees:0}```
 - calibration.set.frontDepthPitch
@@ -57,20 +60,31 @@ API Version: 1.0.0
   - parameters: ```{value:'15-'}```
 - calibration.set.ultrasonicShortThresholds
   - parameters: ```{value:'100,0;400,184;200,200;200,200;100,176;100,136;100,80;200,32;400,8;5000,8;5000,8;5000,8'}```
+- calibration.set.ultrasonicLongThresholds
+  - parameters: ```{value:'1400,160;1000,32;1000,16;2400,16;2400,16;1400,16;1400,16;1400,16;1400,16;1400,24;1400,24;1400,24'}```
 
 ### camera
 - camera.enable
   - parameters: ```{width:1152,height:720,template:'h264ForWebRTC',gstreamer:'appsrc name=d3src ! autovideosink'}```
-  - Pass either template or gstreamer. If both are passed, template will take precedence.
+  - Pass either `template` or `gstreamer`. If both are passed, `template` will take precedence.
+  - If the camera is already enabled, the size will not be changed, but the new output(`template` or`gstreamer`) will be applied.
 - camera.disable
 - camera.zoom
   - parameters: ```{sensor:0,zoom:1,x:0,y:0,updateRegion:true,time:0.5}```
   - Sensor 0 (wide) or 1 (narrow), zoom is 1.0 - 4.0, x and y are -1.0 = 1.0, updateRegion crops exposure and white balance, animationLength is in seconds
+  - Note: We recommend using ptz.* commands instead of camera.zoom directly.
+- camera.setInterpolation
 - camera.night.enable
 - camera.night.disable
 - camera.output
-  - parameters: ```{template:'h264ForWebRTC',gstreamer:'appsrc name=d3src ! autovideosink'}```
-  - Send only one of these parameters.
+  - parameters: ```{template:'h264ForWebRTC',gstreamer:'appsrc name=d3src ! autovideosink',width:1152,height:720}```
+  - Send only one of either `template` or `gstreamer`. Possible values for template:
+    - `preheat` turns the camera on, but no output
+    - `screen` shows on-screen using "nvoverlaysink"
+    - `h264ForWebRTC` hardware encoding to h264 and publishes to the d3-webrtc binary
+    - `v4l2` outputs to /dev/video9 and shows up as a webcam "D3_Camera" in Electron/Chromium
+- camera.setMaxFps
+  - parameters: ```{fps:30}```
 - camera.graphics.enable
 - camera.graphics.disable
 - camera.graphics.occlusion.enable
@@ -87,10 +101,14 @@ API Version: 1.0.0
 - camera.pose.setNotRequired
 - camera.grid.enable
 - camera.grid.disable
-- camera.encoder.half.enable
-- camera.encoder.half.disable
 - camera.encoder.forceInterFrame
+- camera.encoder.setRates
+  - parameters: ```{bitrate:4000000,fps:30}```
 - camera.capturePhoto
+- camera.hitTest
+  - parameters: ```{x:0.5,y:0.5,highlight:true}```
+- camera.v4l2loopback.install
+- camera.v4l2loopback.remove
 - camera.qc.line.enable
   - parameters: ```{x:2,z:1}```
 - camera.qc.line.disable
@@ -104,12 +122,18 @@ API Version: 1.0.0
 - depth.front.pause
 - depth.floor.resume
 - depth.front.resume
+- depth.floor.reset
+- depth.front.reset
 - depth.floor.detectors
   - parameters: ```{columns:true,grid:false}```
 - depth.front.detectors
   - parameters: ```{frontGrid:true}```
 - depth.floor.hdr.enable
 - depth.floor.hdr.disable
+- depth.floor.setROI
+  - parameters: ```{left:0,right:847,top:0,bottom:479}```
+- depth.front.setROI
+  - parameters: ```{left:0,right:847,top:0,bottom:479}```
 
 ### dockTracker
 - dockTracker.enable
@@ -120,6 +144,7 @@ API Version: 1.0.0
 - documentation.requestCommands
   - parameters: ```{header:false,links:true,tableOfContents:true}```
 - documentation.requestEvents
+- documentation.requestForGitHub
 
 ### endpoint
 - endpoint.enable
@@ -128,9 +153,19 @@ API Version: 1.0.0
 - endpoint.requestStatusForDriver
 - endpoint.requestIdentity
   - parameters: ```{requestSetupLink:false}```
+- endpoint.requestLinkedIdentity
+  - This will not return anything, if the identity is not linked. It is used for checking the server during setup, so we'll know when the owner has linked the robot to their account on the server.
 - endpoint.unlinkIdentity
 - endpoint.requestVisitorPassCreatorLink
 - endpoint.session.end
+- endpoint.setOptions
+  - parameters: ```{allowDisablingObstacleAvoidance:false,disablePhoto:false,defaultToObstacleAvoidanceStop:false}```
+  - All parameters are optional.
+- endpoint.requestOptions
+- endpoint.driverSidebar.sendMessage
+  - parameters: ```{message:{},targetOrigin:'example.com'}```
+  - This command is in development, not stable, and could disappear.
+  - For targetOrigin definition, see: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
 
 ### events
 - events.subscribe
@@ -144,6 +179,7 @@ API Version: 1.0.0
 - events.server.enable
 - events.server.pause
 - events.server.resume
+- events.server.renew
 - events.console.pause
 - events.console.resume
 
@@ -163,6 +199,8 @@ API Version: 1.0.0
   - parameters: ```{url:'https://standby.doublerobotics.com'}```
 - gui.message.to
 - gui.message.from
+- gui.hide
+- gui.show
 - gui.watchdog.allow
 - gui.watchdog.disallow
 - gui.watchdog.reset
@@ -173,6 +211,8 @@ API Version: 1.0.0
 - gui.accessoryWebView.open.qc
 - gui.accessoryWebView.open.incall
 - gui.accessoryWebView.close
+- gui.accessoryWebView.hide
+- gui.accessoryWebView.show
 - gui.accessoryWebView.message.to
 - gui.accessoryWebView.message.from
 
@@ -187,6 +227,11 @@ API Version: 1.0.0
 - imu.stdout.pause
 - imu.stdout.resume
 
+### mics
+- mics.setBoost
+  - parameters: ```{percent:0.25}```
+- mics.requestStatus
+
 ### navigate
 - navigate.enable
 - navigate.disable
@@ -196,17 +241,29 @@ API Version: 1.0.0
 - navigate.drive
   - parameters: ```{throttle:0,turn:0,powerDrive:false}```
   - Throttle and turn are -1.0 - 1.0. Actual driving speed will be filtered by the obstacle avoidance module.
-To maintain smooth driving, this command must be sent repeatedly (every 200ms is recommended) or it will default to stopping after the timeout (500ms).
+  - To maintain smooth driving, this command must be sent repeatedly (every 200ms is recommended) or it will default to stopping after the timeout (500ms).
 - navigate.target
-  - parameters: ```{x:0,y:0,angle:0,relative:true,dock:false}```
-  - x/y units are in meters, x = forward/back, y = left/right, angle is radians
+  - parameters: ```{x:0,y:0,angleRadians:0,relative:true,dock:false,dockId:0}```
+  - x/y units are in meters, x = forward/back, y = left/right
+  - To dock, use dock: forward (backward is not supported) and pass dockId:XXXXXX
+  - angleRadians is the angle to end at, after reaching the target
 - navigate.cancelTarget
+- navigate.hitResult
+  - parameters: {hit:true,x:0.0,y:0.0,z:0.0,...}
+  - Pass the data from the DRCamera.hitResult event after sending camera.hitTest to this command to automatically drive to the found position. If hit:false, no action will be taken.
 
 ### network
 - network.requestScan
+  - parameters: ```{rssi:false}```
 - network.requestActiveAP
 - network.join
-  - parameters: ```{ssid:'',password:''}```
+  - parameters: ```{ssid:'',password:'',wifiSecKeyMgmt:'',ipv4method:'',eap:'',phase2auth:'',identity:'',anonymousIdentity:''}```
+  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
+  - ipv4method: optional.  [auto|link-local|manual|shared|disabled]
+  - eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
+  - phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
+  - identity: optional.  (WPA2 Ent. username)
+  - anonymousIdentity: optional.  (802-1x.anonymous-identity)
 - network.join.cancel
 - network.reset
 - network.requestInfo
@@ -228,7 +285,7 @@ To maintain smooth driving, this command must be sent repeatedly (every 200ms is
 - ptz.move
   - parameters: ```{x:0,y:0,zoom:0}```
   - x and y are both -1.0 to 1.0, as percentages of the maximum speed.
-This must be sent repeatedly (faster than every 200 ms) to continue moving.
+  - This must be sent repeatedly (faster than every 200 ms) to continue moving.
 - ptz.stop
 - ptz.in
   - parameters: ```{by:1,speed:0.5,x:0,y:0}```
@@ -261,6 +318,8 @@ This must be sent repeatedly (faster than every 200 ms) to continue moving.
 - system.tegrastats.disable
 - system.terminal.enable
 - system.terminal.disable
+- system.terminal.resize
+  - parameters: ```{cols:140,rows:80}```
 - system.terminal
   - parameters: ```{stdin:'ls'}```
 - system.touchscreen.startCalibration
@@ -271,12 +330,14 @@ This must be sent repeatedly (faster than every 200 ms) to continue moving.
 - system.clocks.setHigh
 - system.clocks.request
 - system.restartService
+  - parameters: ```{stealth:false}```
 - system.reboot
 - system.shutdown
 - system.enableRearUSBPorts
 - system.disableRearUSBPorts
 - system.enableUSBHub
 - system.disableUSBHub
+- system.finalizeAndReboot
 
 ### tilt
 - tilt.enable
@@ -287,7 +348,7 @@ This must be sent repeatedly (faster than every 200 ms) to continue moving.
 - tilt.move
   - parameters: ```{speed:0}```
   - Speed is -1.0 (tilt up full speed) to 1.0 (tilt down full speed), with 0.0 being stop.
-To maintain smooth motion, this command must be sent repeatedly (every 200ms is recommended) or it will default to stopping after the timeout (500ms).
+  - To maintain smooth motion, this command must be sent repeatedly (every 200ms is recommended) or it will default to stopping after the timeout (500ms).
 - tilt.stop
 - tilt.home
 - tilt.default
@@ -306,6 +367,7 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
   - parameters: ```{pattern:[2,0,4,2,1,3],delay:10,dump:false}```
 - ultrasonic.stop
 - ultrasonic.resetShortRangeCalibration
+- ultrasonic.resetLongRangeCalibration
 
 ### updater
 - updater.base.update
@@ -323,20 +385,24 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 
 ### webrtc
 - webrtc.enable
-  - parameters: ```{servers:[{urls:'stun:rtc.doublerobotics.com'}]}```
+  - parameters: ```{servers:[{urls:'stun:rtc.doublerobotics.com'}],transportPolicy:'all',manageCamera:false}```
   - The servers parameter is optional. It will default to Double's servers.
 - webrtc.disable
 - webrtc.signal
 - webrtc.setMicrophoneVolume
   - parameters: ```{percent:1}```
 
------------------------
+Documentation Generated: 2020-06-02 04:02:12
 
-## Events
+
+----
+
 
 ### DRAPI
 - localConfiguration
 - remoteConfiguration
+- setStartupConfig
+- setStartupConfigError
 - status
 
 ### DRDebugServer
@@ -345,9 +411,13 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - error
 - listen
 
+### DRDepthClient
+- binary
+
 ### DRDocumentation
 - commands
 - events
+- forGitHub
 
 ### DRIPCServer
 - clientConnected
@@ -358,6 +428,9 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - restartedServer
 - serverBail
 - serverStarted
+
+### DRLogger
+- debugHeartbeat
 
 ### DRBase
 - badChecksum
@@ -383,9 +456,12 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - version
 
 ### DRCamera
+- event
 - restartingArgus
 
 ### DRDepth
+- deviceError
+- deviceNotFound
 - err
 
 ### DRIMU
@@ -394,6 +470,12 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - calibrationLog
 - converge
 - imu
+- repeatWatchdog
+- stdoutError
+
+### DRMics
+- setBoostError
+- status
 
 ### DRMotor
 - open
@@ -410,6 +492,7 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 ### DRUltrasonic
 - dump
 - invalidChecksum
+- longRangeThresholds
 - measurement
 - sendConfig
 - serialError
@@ -423,6 +506,7 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - connect_timeout
 - disconnect
 - error
+- identityChangeHandler
 - receivedCommand
 - reconnect
 - reconnect_attempt
@@ -439,8 +523,11 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - error
 - identityHotUpdate
 - inboundCommand
+- messageFromDriverSidebar
+- options
 - outboundCommand
 - photoError
+- screenSharingLog
 - sessionBegin
 - sessionEnd
 - setup
@@ -450,12 +537,16 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 
 ### DRIdentity
 - errorGettingIdentity
+- errorSettingLocation
+- errorSettingNickname
 
 ### DRWebRTC
 - event
+- stats
 
 ### index
 - boot
+- version
 
 ### DRDockTracker
 - clear
@@ -497,8 +588,8 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - info
 - join
 - joinError
+- joinRetry
 - location
-- locationError
 - monitorLog
 - networkError
 - rejoin
@@ -507,6 +598,7 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - resetError
 - scan
 - scanActiveAP
+- signal
 
 ### DRNetworkChecker
 - errorButNeverConnected
@@ -514,8 +606,13 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - request
 - result
 
+### DRNetworkLocation
+- gettingLocation
+- retry
+
 ### DRNetworkScanner
-- scanError
+- iwScanError
+- nmcliScanError
 
 ### DRDevice
 - enable
@@ -529,19 +626,25 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - event
 - exit
 - respawn
+- state
 - stderr
 - stdinError
 - watchdog
 
 ### DRGUI
 - accessoryWebView.close
+- accessoryWebView.hide
 - accessoryWebView.message.from
 - accessoryWebView.message.to
 - accessoryWebView.open
+- accessoryWebView.show
+- event
 - go.standby
 - go.wifi
+- hide
 - message.from
 - message.to
+- show
 - standbyWatchdog
 
 ### DRScreensaver
@@ -564,12 +667,11 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - checkDiskSpaceError
 - clocks
 - clocksError
-- errorSettingDeveloperMode
+- finalizeError
 - nvpmodelError
 - reboot
 - restartService
 - screenshot
-- setDeveloperMode
 - shutdown
 - systemInfo
 - tegrastats
@@ -589,4 +691,3 @@ To maintain smooth motion, this command must be sent repeatedly (every 200ms is 
 - realSenseUpdateProgress
 - realSenseUpdateStart
 
-Documentation Generated: 2020-01-13 17:50:12
