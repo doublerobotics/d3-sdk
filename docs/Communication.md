@@ -78,3 +78,13 @@ Subscribing to all events is possible by passing `*` as an entry in the `events`
 ## Special Connection from JavaScript
 
 When running a custom standby screen or opening an accessory web view in "trusted" mode, a global object is injected by the Electron container called `DRDoubleSDK`. This is a simple object that passes commands and events through to the socket. See the [standby-basic example](../examples/standby-basic/) for how to use this.
+
+## Basic Command Line Test
+
+You can connect to the socket with netcat:
+
+    nc -U /tmp/doubleapi
+
+Then type a command and press enter:
+
+    {"c":"base.pole.stand"}
