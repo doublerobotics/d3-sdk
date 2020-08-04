@@ -10,7 +10,7 @@ Double 3 is powered by an Nvidia Jetson TX2-4GB System-on-Module connected to va
 
 You can write and deploy your own custom code on your D3. The D3 head runs Ubuntu 18.04 with the aarch64 architecture, so you can write code in any language that runs on that platform.
 
-The core D3 software runs as a system service called `d3`. Your code will interact with this service by sending commands and receiving events. All commands and events are sent over a standard Unix domain socket. See more about [communicating with the D3 service](docs/Communicating.md).
+The core D3 software runs as a system service called `d3`. Your code will interact with this service by sending commands and receiving events. All commands and events are sent over a standard Unix domain socket. See more about [communicating with the D3 service](docs/Communication.md).
 
 #### HTML Applications
 
