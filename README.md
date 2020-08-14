@@ -48,6 +48,6 @@ With a native application, you can get access to raw sensor data, such as direct
 
 The Debug Monitor allows you to view and control all of your Double's features from a web interface hosted by an internal server on your D3. The Debug Monitor is a great way to test the functionality of commands before writing any code.
 
-Open the Debug Monitor of your D3 in Chrome on your computer by visiting: http://YOUR_D3_IP:8080. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.  This tool uses the same [API commands](api.md) that you can use in a custom application to communicate with the D3 system.  
+Open the Debug Monitor of your D3 in Chrome on your computer by visiting: http://YOUR_D3_IP:8080. You can find your D3's local IP by tapping the WiFi icon on the default standby screen. This tool uses the same [API commands](docs/API.md) that you can use in a custom application to communicate with the D3 system.
 
 ![D3 Debug Monitor](monitor-preview.png "D3 Debug Monitor")
