@@ -88,3 +88,17 @@ You can connect to the socket with netcat:
 Then type a command and press enter:
 
     {"c":"base.pole.stand"}
+
+## Connect via Network (insecure)
+
+On D3:
+
+    sudo apt-get install socat
+    socat TCP-LISTEN:22022 UNIX-CONNECT:/tmp/doubleapi
+
+On another device:
+
+    nc YOUR_D3_IP 22022
+
+or connect with a TCP socket from any programming language of your choice.
+
