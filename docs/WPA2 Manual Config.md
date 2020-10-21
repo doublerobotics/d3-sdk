@@ -8,7 +8,9 @@ In developer mode, you can copy the certificate(s) to D3 via a USB drive (remove
     sudo mkdir /media/usb
     sudo mount /dev/sda1 /media/usb
     sudo mkdir /etc/pki/my-wifi
-    sudo cp /dev/sda1/bin3.zip /etc/pki/my-wifi
+    sudo cp /dev/sda1/ca.crt /etc/pki/my-wifi
+    sudo cp /dev/sda1/client.crt /etc/pki/my-wifi
+    sudo cp /dev/sda1/client.key /etc/pki/my-wifi
     sudo umount /media/usb
 
 Or, if you can temporarily join a different WiFi network, you can copy them over your local network via scp (from MacOS or Linux):
