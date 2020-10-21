@@ -2,6 +2,17 @@
 
 While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in the on-screen user interface of Double 3, some network types, such as EAP-TLS, require installing certificates to the device or other custom settings. You'll need to talk with your network admin to get the certificate file(s) and the details of the network configuration.
 
+Your network admin will typically provide one, two, or three x509 certificates in PEM format (extensions could be .pem, .crt, or .key). These are plain text files. 
+
+## Convert from PKCS12 (.p12):
+
+If you have a .p12 file, you can convert it to a certificate and key (both are x509 certificates) using the openssl command line tool (pre-installed on Double 3 and most Linux computers):
+
+    openssl pkcs12 -in myfile.p12 -out client.crt -clcerts -nokeys
+    openssl pkcs12 -in myfile.p12 -out client.key -nocerts -nodes
+
+## Copy files to Double 3
+
 In developer mode, you can copy the certificate(s) to D3 via a USB drive (remove the access panel on the back):
 
     lsblk # look for your drive, likely /dev/sda1
@@ -20,9 +31,13 @@ Or, if you can temporarily join a different WiFi network, you can copy them over
 On D3 via ssh, optionally move them to a system directory:
 
     sudo mkdir /etc/pki/my-wifi
+    sudo mv ca.crt /etc/pki/my-wifi/
     sudo mv client.crt /etc/pki/my-wifi/
+    sudo mv client.key /etc/pki/my-wifi/
 
-Add the connection via nmcli:
+## Create WiFi Network
+
+You'll need to get the exact configuration parameters from your WiFi network administrator. The details below are likely not the exact parameters for your network. 
 
     sudo nmcli connection add type wifi ifname wlan0 con-name 'My Network' \
           802-11-wireless.ssid 'My Wifi' \
