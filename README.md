@@ -34,12 +34,14 @@ With a native application, you can get access to raw sensor data, such as direct
 
 ## Documentation
 
-- [API.md](docs/API.md) lists all commands and events.
-- [Communication.md](docs/Communication.md) describes the command and event JSON packet structures.
-- [Developer Mode.md](docs/Developer%20Mode.md) describes entering and exiting developer mode.
-- [Glossary.md](docs/Glossary.md) describes key terms used throughout this documentation.
-- [Security.md](docs/Security.md) discusses security measures and how to maintain security when deploying.
-- [Startup.md](docs/Startup.md) describes how to customize what runs on boot.
+- [API](docs/API.md) lists all commands and events.
+- [Communication](docs/Communication.md) describes the command and event JSON packet structures.
+- [Console and Ubuntu Desktop](docs/Console%20and%20Ubuntu%20Desktop.md) describes how to customize what runs on boot.
+- [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
+- [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
+- [Security](docs/Security.md) discusses security measures and how to maintain security when deploying.
+- [Startup](docs/Startup.md) describes how to customize what runs on boot.
+- [WPA2 Manual Config](docs/WPA2%20Manual%20Config.md) describes how to customize what runs on boot.
 - [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
