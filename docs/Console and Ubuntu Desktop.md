@@ -2,7 +2,7 @@
 
 While in Developer Mode, you have root access to the system and you can access Ubuntu in standard ways.
 
-## Console
+## Local Console
 
 You can use an HDMI monitor and USB keyboard to access the console locally by switching to a different [TTY](https://askubuntu.com/questions/66195/what-is-a-tty-and-how-do-i-access-a-tty).
 
@@ -10,6 +10,12 @@ You can use an HDMI monitor and USB keyboard to access the console locally by sw
 2. Plug in a USB keyboard and an HDMI monitor (must be after it booted).
 3. Press `Ctrl` `Alt` `F1` and the console should appear on the HDMI monitor with a login prompt. Unless you've changed the username or password, the default is "double" and the default password should have been emailed to you after our team switches your robot into developer mode.
 4. Press `Ctrl` `Alt` `F2` to get back to the standard Double 3 user interface.
+
+## SSH
+
+You can ssh to your robot's local IP. Unless you've changed the username or password, the default is "double" and the default password should have been emailed to you after our team switches your robot into developer mode.
+
+For more secure access, we recommend setting up [key-based SSH login](https://help.ubuntu.com/community/SSH/OpenSSH/Keys).
 
 ## Ubuntu Desktop
 
