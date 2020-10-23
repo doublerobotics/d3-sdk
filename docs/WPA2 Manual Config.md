@@ -2,61 +2,91 @@
 
 While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in the on-screen user interface of Double 3, some network types, such as EAP-TLS, require installing certificates to the device or other custom settings. You'll need to talk with your network admin to get the certificate file(s) and the details of the network configuration.
 
+Your D3 will need to be in Developer Mode for this. [See how to request Developer Mode](Developer%20Mode.md)
+
+## Copy certificate files to D3
+
 Your network admin will typically provide one, two, or three x509 certificates in PEM format (extensions could be .pem, .crt, or .key). These are plain text files. 
 
-## Convert from PKCS12 (.p12):
+### Via `scp` over your local network
 
-If you have a .p12 file, you can convert it to a certificate and key (both are x509 certificates) using the openssl command line tool (pre-installed on Double 3 and most Linux computers):
+You can copy each file over your local network via scp (from MacOS, Linux, or via the [PuTTY](https://www.putty.org/) program on Windows):
 
-    openssl pkcs12 -in myfile.p12 -out client.crt -clcerts -nokeys
-    openssl pkcs12 -in myfile.p12 -out client.key -nocerts -nodes
+    scp ca.pem double@x.x.x.x:~/
 
-## Copy files to Double 3
+While you should have already set your own password, you can find the default password in the email you received after entering developer mode.
 
-In developer mode, you can copy the certificate(s) to D3 via a USB drive (remove the access panel on the back):
+You will need to connect to your D3 either over `ssh` or you can use the Developer Monitor (http://YOUR_D3_IP:8080) > Terminal tab.
 
-    lsblk # look for your drive, likely /dev/sda1
+### Via USB drive
+
+You can copy the certificate(s) to D3 via a USB drive (remove the access panel on the back).
+
+Look for the automatic name of the drive (likely `sda1`) in this list:
+
+    lsblk
+
+Mount the drive:
+
     sudo mkdir /media/usb
     sudo mount /dev/sda1 /media/usb
-    sudo mkdir /etc/pki/my-wifi
-    sudo cp /dev/sda1/ca.crt /etc/pki/my-wifi
-    sudo cp /dev/sda1/client.crt /etc/pki/my-wifi
-    sudo cp /dev/sda1/client.key /etc/pki/my-wifi
+    ls /media/usb
+
+That last line should print a list of your files.
+
+Copy the files to D3:
+
+    cp /media/usb/ca.pem /home/double
+    cp /media/usb/client-crt.pem /home/double  # only if required by your network
+    cp /media/usb/client-key.pem /home/double  # only if required by your network
+
+Unmount the drive (note that the command is `umount`, not `unmount`):
+
     sudo umount /media/usb
-
-Or, if you can temporarily join a different WiFi network, you can copy them over your local network via scp (from MacOS or Linux):
-
-    scp client.crt double@x.x.x.x:~/
-
-On D3 via ssh, optionally move them to a system directory:
-
-    sudo mkdir /etc/pki/my-wifi
-    sudo mv ca.crt /etc/pki/my-wifi/
-    sudo mv client.crt /etc/pki/my-wifi/
-    sudo mv client.key /etc/pki/my-wifi/
 
 ## Create WiFi Network
 
 You'll need to get the exact configuration parameters from your WiFi network administrator. The details below are likely not the exact parameters for your network. 
 
-    sudo nmcli connection add type wifi ifname wlan0 con-name 'My Network' \
-          802-11-wireless.ssid 'My Wifi' \
+Complete documentation and descriptions of each parameter are on the [nmcli user manual's 802.1x page](https://developer.gnome.org/NetworkManager/stable/settings-802-1x.html).
+
+### EAP-TLS Example
+
+    sudo nmcli connection add type wifi ifname wlan0 con-name 'MyCompanySSID' \
+          802-11-wireless.ssid 'MyCompanySSID' \
           802-11-wireless-security.key-mgmt wpa-eap \
           802-1x.eap tls \
-          802-1x.identity identity@example.com \
-          802-1x.ca-cert /etc/pki/my-wifi/ca.crt \
-          802-1x.client-cert /etc/pki/my-wifi/client.crt \
-          802-1x.private-key /etc/pki/my-wifi/client.key \
-          802-1x.private-key-password abc123
+          802-1x.identity myname@example.com \
+          802-1x.ca-cert /home/double/ca.pem \
+          802-1x.client-cert /home/double/client-crt.pem \
+          802-1x.private-key /home/double/client-key.pem \
+          802-1x.private-key-password "abc123"
 
-Complete documentation and descriptions of each parameter are on the [nmcli user manual's 802.1x page](https://developer.gnome.org/NetworkManager/stable/settings-802-1x.html).
+### EAP-PEAP-MSCHAPv2 Example
+
+    sudo nmcli connection add type wifi ifname wlan0 con-name 'MyCompanySSID' \
+          802-11-wireless.ssid 'MyCompanySSID' \
+          802-11-wireless-security.key-mgmt wpa-eap \
+          802-1x.eap peap \
+          802-1x.phase2-auth mschapv2 \
+          802-1x.identity myname@example.com \
+          802-1x.password "abc123" \
+          802-1x.ca-cert /home/double/ca.pem
 
 You must first disconnect wlan0 before attempting to connect using this connection (all in one line, so it's sent before it disconnects):
 
-    sudo nmcli device disconnect wlan0 && sleep 5 && sudo nmcli connection up 'My Network'
+    sudo nmcli device disconnect wlan0 && sleep 5 && sudo nmcli connection up 'MyCompanySSID'
 
 If successful and you want to delete any other network, you can do that with:
 
     nmcli connection show
     sudo nmcli connection delete 'Other Network Name'
 
+## Other Notes
+
+### Convert from PKCS12 (.p12):
+
+If you have a .p12 file, you can convert it to a certificate and key (both are x509 certificates) using the openssl command line tool (pre-installed on Double 3 and most Linux computers):
+
+    openssl pkcs12 -in myfile.p12 -out client-crt.pem -clcerts -nokeys
+    openssl pkcs12 -in myfile.p12 -out client-key.pem -nocerts -nodes
