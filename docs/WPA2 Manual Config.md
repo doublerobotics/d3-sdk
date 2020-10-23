@@ -1,6 +1,8 @@
 # Configure WPA2 Manually
 
-While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in the on-screen user interface of Double 3, some network types, such as EAP-TLS, require installing certificates to the device or other custom settings. You'll need to talk with your network admin to get the certificate file(s) and the details of the network configuration.
+While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in the on-screen user interface of Double 3, some network types, such as EAP-TLS or EAP-PEAP-MSCHAPv2 (with CA certificate), require copying certificates to the device or other custom settings.
+
+__You'll need to talk with your network admin to get the certificate file(s) and the technical details of the network configuration.__
 
 Your D3 will need to be in Developer Mode for this. [See how to request Developer Mode](Developer%20Mode.md)
 
@@ -62,7 +64,7 @@ Complete documentation and descriptions of each parameter are on the [nmcli user
           802-1x.private-key /home/double/client-key.pem \
           802-1x.private-key-password "abc123"
 
-### EAP-PEAP-MSCHAPv2 Example
+### EAP-PEAP-MSCHAPv2 (with CA certificate) Example
 
     sudo nmcli connection add type wifi ifname wlan0 con-name 'MyCompanySSID' \
           802-11-wireless.ssid 'MyCompanySSID' \
