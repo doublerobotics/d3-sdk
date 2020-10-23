@@ -79,11 +79,13 @@ It should return saying something like:
 
     Connection 'MyCompanySSID' (XXXXXXXX-XXXX-XXXX-X-XXXXXXXXX) successfully added.
 
-You must first disconnect wlan0 before attempting to connect using this connection (all in one line, so it's sent before it disconnects):
+The network should now show up as a saved connection (two buttons: Connect and ►) on the D3's WiFi scan list (press the refresh button), if it's within range of this SSID. You can simply tap the "Connect" button.
 
-    sudo nmcli device disconnect wlan0 && sleep 5 && sudo nmcli connection up 'MyCompanySSID'
+If you prefer to connect via the command line, you must first disconnect wlan0 before attempting to connect using this connection (all in one line, so it's sent before it disconnects):
 
-If successful, you'll want to delete the other WiFi network. You can do that in the Developer Monitor > Network > Saved Connections list.
+    sudo nmcli device disconnect wlan0 && sleep 10 && sudo nmcli connection up 'MyCompanySSID'
+
+If successful, you'll want to delete the other WiFi network. You can do on the D3 WiFi screen or in the Developer Monitor > Network > Saved Connections list.
 
 ## Other Notes
 
