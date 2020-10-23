@@ -4,7 +4,7 @@ While WPA2 personal (PSK) and WPA2 Enterprise (EAP-MSCHAPv2) are configurable in
 
 __You'll need to talk with your network admin to get the certificate file(s) and the technical details of the network configuration.__
 
-Your D3 will need to be in Developer Mode for this. [See how to request Developer Mode](Developer%20Mode.md)
+Your D3 will need to be in Developer Mode for this. [See how to request Developer Mode.](Developer%20Mode.md) You will need to connect to a different WiFi network temporarily, so you can do this configuration.
 
 ## Copy certificate files to D3
 
@@ -75,14 +75,15 @@ Complete documentation and descriptions of each parameter are on the [nmcli user
           802-1x.password "abc123" \
           802-1x.ca-cert /home/double/ca.pem
 
+It should return saying something like:
+
+    Connection 'MyCompanySSID' (XXXXXXXX-XXXX-XXXX-X-XXXXXXXXX) successfully added.
+
 You must first disconnect wlan0 before attempting to connect using this connection (all in one line, so it's sent before it disconnects):
 
     sudo nmcli device disconnect wlan0 && sleep 5 && sudo nmcli connection up 'MyCompanySSID'
 
-If successful and you want to delete any other network, you can do that with:
-
-    nmcli connection show
-    sudo nmcli connection delete 'Other Network Name'
+If successful, you'll want to delete the other WiFi network. You can do that in the Developer Monitor > Network > Saved Connections list.
 
 ## Other Notes
 
