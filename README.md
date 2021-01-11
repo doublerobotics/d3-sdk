@@ -42,8 +42,11 @@ With a native application, you can get access to raw sensor data, such as direct
 - [Security](docs/Security.md) discusses security measures and how to maintain security when deploying.
 - [Software Updates](docs/Software%20Updates.md) discusses installing software and updating the D3 software.
 - [Startup](docs/Startup.md) describes how to customize what runs on boot.
+- [USB Drive](docs/USB%20Drive.md) shows how to set up a USB flash drive for writing and executing code.
 - [WPA2 Manual Config](docs/WPA2%20Manual%20Config.md) describes how to add a more complex WiFi network, such as EAP-TLS.
-- [D3 System Diagram](system-diagram.pdf) shows how the hardware sensors, system daemons, GUI, and servers interconnect.
+
+
+## [D3 System Diagram](system-diagram.pdf)
 
 ![D3 System Diagram](system-diagram-preview.png? "D3 System Diagram")
 
