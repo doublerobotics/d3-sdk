@@ -4,7 +4,7 @@ Before accessing any developer features, your Double 3 will need to be [put into
 
 ## Hardware
 
-Double 3 is powered by an Nvidia Jetson TX2-4GB System-on-Module connected to various built-in [sensors and devices](https://www.doublerobotics.com/tech-specs.html). The hardware is similar to an Nvidia [Jetson TX2 Dev Kit](https://developer.nvidia.com/embedded/jetson-tx2-developer-kit) with added peripherals.
+[Double 3](https://www.doublerobotics.com/double3.html) is powered by an Nvidia Jetson TX2-4GB System-on-Module connected to various built-in [sensors and devices](https://www.doublerobotics.com/tech-specs.html). The hardware is similar to an Nvidia [Jetson TX2 Dev Kit](https://developer.nvidia.com/embedded/jetson-tx2-developer-kit) with added peripherals.
 
 ## Custom Applications
 
