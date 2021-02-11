@@ -35,7 +35,7 @@ With a native application, you can get access to raw sensor data, such as direct
 ## Documentation
 
 - [API](docs/API.md) lists all commands and events.
-- [Release Notes](docs/RELEASE%20NOTES.md) shows the history of new features.
+- [Release Notes](RELEASE%20NOTES.md) shows the history of new features.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
 - [Console and Ubuntu Desktop](docs/Console%20and%20Ubuntu%20Desktop.md) describes how to access Ubuntu in standard ways.
 - [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
