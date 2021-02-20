@@ -1,5 +1,5 @@
 # D3 API
-D3 Software Version: 1.1.3
+D3 Software Version: {{version_number}}
 ## Commands
 [api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
 ### api
@@ -14,7 +14,9 @@ D3 Software Version: 1.1.3
   "key": "STANDBY_URL",
   "value": "https://d3.doublerobotics.com"
 }```
-  - Restart service is required (system.restartService). To delete key, send value null or don't include value at all.
+  - These values override the localConfiguration values. See possible values in Monitor > System > Local Configuration. You probably don't want to change any of them, except for the `STANDBY_URL`.
+  - The values saved to disk in `/etc/d3/startup.json`. Restart service is required(`system.restartService`) for new values to take effect.
+  - To delete key, send value null or don't include value at all.
 
 ### base
 - base.kickstand.deploy
@@ -24,25 +26,26 @@ D3 Software Version: 1.1.3
   - parameters: ```{
   "percent": 1
 }```
-  - event: `DRBase.poleMotionStart`
 - base.pole.sit
-  - event: `DRBase.poleMotionStart`
 - base.pole.stand
-  - event: `DRBase.poleMotionStart`
 - base.pole.stop
-  - event: `DRBase.poleMotionStop`
 - base.requestVersion
   - event: `DRBase.version`
 - base.requestStatus
   - event: `DRBase.status`
 - base.travel.start
-  - event: `DRBase.travel`
+  - event: `DRBase.travel` The travel data contains the wheel encoder data, both as number of ticks and inches of travel since last event. Note that the `DRPose.pose` event may be more useful, as it uses the encoder data to estimate the robot's current position in world coordinates.
 - base.travel.stop
 - base.turnBy
   - parameters: ```{
   "degrees": 0,
   "degreesWhileDriving": 0
 }```
+- other:
+  - event: `DRBase.poleMotionStop` fires only if travel data is running.
+event: `DRBase.poleMotionStart` fires only if travel data is running.
+  - event: `DRBase.poleMotionStop` fires only if travel data is running.
+event: `DRBase.poleMotionStart` fires only if travel data is running.
 
 ### calibration
 - calibration.requestValues
@@ -155,14 +158,19 @@ D3 Software Version: 1.1.3
   "top": 0,
   "bottom": 479
 }```
+- other:
+  - event: `DRFloorDepth.frame`
+event: `DRFrontDepth.frame`
+  - event: `DRFloorDepth.frame`
+event: `DRFrontDepth.frame`
 
 ### dockTracker
 - dockTracker.enable
 - dockTracker.disable
 - dockTracker.clear
   - event: `DRDockTracker.clear`
-- Other Events:
-  - `DRDockTracker.docks` fires repeatedly while docks are detected.
+- other:
+  - event: `DRDockTracker.docks` fires repeatedly while docks are detected.
 
 ### documentation
 - documentation.requestCommands
@@ -176,6 +184,8 @@ D3 Software Version: 1.1.3
 - documentation.requestForGitHub
 
 ### endpoint
+
+The endpoint represents the connection with Double's calling servers and driver clients. If you are building your own calling server and driver clients, then you can disable this or remove its entry from the default startup commands (`/etc/d3/startup.json`).
 - endpoint.enable
 - endpoint.disable
 - endpoint.driverSidebar.sendMessage
@@ -211,10 +221,13 @@ D3 Software Version: 1.1.3
   "playCallChimes": false
 }```
   - All parameters are optional.
+  - These options are saved to disk and are used at the beginning of a call from Double's driver clients.
 - endpoint.unlinkIdentity
-- Other Events:
-  - `DREndpointModule.sessionBegin`
-  - `DREndpointModule.sessionEnd`
+- other:
+  - event: `DREndpointModule.sessionBegin`
+event: `DREndpointModule.sessionEnd`
+  - event: `DREndpointModule.sessionBegin`
+event: `DREndpointModule.sessionEnd`
 
 ### events
 - events.subscribe
@@ -233,6 +246,8 @@ D3 Software Version: 1.1.3
 }```
 
 ### gridManager
+
+The gridManager handles the grid of dots that are shown on the floor in the mixed reality video stream.
 - gridManager.enable
 - gridManager.disable
 - gridManager.clear
@@ -242,10 +257,14 @@ D3 Software Version: 1.1.3
   "increment": 0.05,
   "ms": 20
 }```
-- Other Events:
-  - `DRGridManager.robotGrid`
+- other:
+  - event: `DRGridManager.robotGrid` The `base64` value is a base64 string containing a zlib compressed javascript Uint8Array array of character codes with length 40000, representing the 200x200 m grid of drivable tiles. Each tile is 10x10 cm. The robot is always centered in this grid, but slightly offset (the `offset.x` and `offset.y` values). At each 10 cm interval of global movement, the entire grid moves by 10 cm and the offsets reset to 0. This gives the illusion that the tiles (dots) stick to the floor. Decode in JavaScript using [Pako](https://github.com/nodeca/pako) with: `var grid = Uint8Array.from(pako.inflate(new Uint8Array(atob(event.data.base64).split('').map(function (x) { return x.charCodeAt(0); }))));`
 
 ### gui
+
+The gui represents the [Electron](https://github.com/electron/electron) instance that is shown on screen. Our system uses it for the standby screen, WiFi screen, in-call screen, and various in-call features. It does not show the incoming WebRTC video stream, though. The main gui window (standby window) is launched behind the WebRTC video, but the accessory web view is launched over the WebRTC video.
+
+You can create your own standby screen as a web page or you can create your own native application and disable the gui or remove its entry from the default startup commands(`/etc/d3/startup.json`).
 - gui.enable
   - parameters: ```{
   "standbyUrl": "https://d3.doublerobotics.com",
@@ -280,7 +299,7 @@ D3 Software Version: 1.1.3
 - gui.watchdog.allow
 - gui.watchdog.disallow
 - gui.watchdog.reset
-- Other Events:
+- other:
   - `DRGUI.accessoryWebView.close`
   - `DRGUI.accessoryWebView.hide`
   - `DRGUI.accessoryWebView.message.from`
@@ -297,7 +316,7 @@ D3 Software Version: 1.1.3
 - imu.disable
 - imu.pause
 - imu.resume
-- Other Events:
+- other:
   - `DRIMU.converge` fires after startup when the data becomes usable.
   - `DRIMU.imu` contains the quaternion from the IMU and fires up to 60 times per second.
 
@@ -310,6 +329,8 @@ D3 Software Version: 1.1.3
   - event: `DRMics.status`
 
 ### navigate
+
+Use the navigate commands to drive. Manual driving is done through `navigate.drive` and Click-to-Drive is done with `navigate.target`.
 - navigate.enable
 - navigate.disable
 - navigate.cancelTarget
@@ -349,10 +370,14 @@ D3 Software Version: 1.1.3
   - To dock, use `dock: forward` (backward is not supported) and pass dockId:XXXXXX
   - To undock, use: `action: exitDock`
   - angleRadians is the angle to end at, after reaching the target
-  - event: `DRNavigateModule.target`
+  - x/y units are in meters, x = forward/back, y = left/right
+To dock, use `dock: forward` (backward is not supported) and pass dockId:XXXXXX
+To undock, use: `action: exitDock`
+angleRadians is the angle to end at, after reaching the target
+event: `DRNavigateModule.target`
 - navigate.ultrasonic.ignore
 - navigate.ultrasonic.avoid
-- Other Events:
+- other:
   - `DRNavigateModule.arrive`
 
 ### network
@@ -387,10 +412,46 @@ D3 Software Version: 1.1.3
   - phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
   - identity: optional.  (WPA2 Ent. username)
   - anonymousIdentity: optional.  (802-1x.anonymous-identity)
-  - event: `DRNetwork.join`
-  - event: `DRNetwork.joinError`
-  - event: `DRNetwork.joinResult`
-  - event: `DRNetwork.joinRetry`
+  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
+ipv4method: optional.  [auto|link-local|manual|shared|disabled]
+eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
+phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
+identity: optional.  (WPA2 Ent. username)
+anonymousIdentity: optional.  (802-1x.anonymous-identity)
+event: `DRNetwork.join`
+event: `DRNetwork.joinError`
+event: `DRNetwork.joinResult`
+event: `DRNetwork.joinRetry`
+  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
+ipv4method: optional.  [auto|link-local|manual|shared|disabled]
+eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
+phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
+identity: optional.  (WPA2 Ent. username)
+anonymousIdentity: optional.  (802-1x.anonymous-identity)
+event: `DRNetwork.join`
+event: `DRNetwork.joinError`
+event: `DRNetwork.joinResult`
+event: `DRNetwork.joinRetry`
+  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
+ipv4method: optional.  [auto|link-local|manual|shared|disabled]
+eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
+phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
+identity: optional.  (WPA2 Ent. username)
+anonymousIdentity: optional.  (802-1x.anonymous-identity)
+event: `DRNetwork.join`
+event: `DRNetwork.joinError`
+event: `DRNetwork.joinResult`
+event: `DRNetwork.joinRetry`
+  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
+ipv4method: optional.  [auto|link-local|manual|shared|disabled]
+eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
+phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
+identity: optional.  (WPA2 Ent. username)
+anonymousIdentity: optional.  (802-1x.anonymous-identity)
+event: `DRNetwork.join`
+event: `DRNetwork.joinError`
+event: `DRNetwork.joinResult`
+event: `DRNetwork.joinRetry`
 - network.join.cancel
 - network.requestActiveAP
   - event: `DRNetwork.scanActiveAP`
@@ -412,7 +473,7 @@ D3 Software Version: 1.1.3
 }```
   - This value is used until the d3 service restarts or operating system is rebooted. This can also be set with startup.json config "BGSCAN_DEFAULT".
   - [bgscan docs](https://wiki.archlinux.org/index.php/wpa_supplicant#Roaming)
-- Other Events:
+- other:
   - `DRNetwork.apDisconnect`
   - `DRNetwork.bandwidth`
   - `DRNetwork.connect`
@@ -439,10 +500,12 @@ D3 Software Version: 1.1.3
 - pose.resetOrigin
   - event: `DRPose.resetOrigin`
 - pose.resume
-- Other Events:
-  - `DRPose.pose` is fired continuously as the robot's pose changes.
+- other:
+  - `DRPose.pose` is fired continuously as the robot's pose changes. It includes both an estimate of the base's position in world coordinates based on the wheel encoder data and the head's position based on the IMU data and knowledge of the robot's model and degrees of freedom.
 
 ### ptz
+
+Use these commands to pan, tilt, and zoom around the video stream. It combines the tilt motor, wheels, and both camera sensors.
 - ptz.in
   - parameters: ```{
   "by": 1,
@@ -484,6 +547,8 @@ D3 Software Version: 1.1.3
 }```
 
 ### screensaver
+
+The screensaver turns the LCD backlight off based on inactivity. You can call screensaver.nudge at any time to let it know that there's activity happening (similar to typing on a keyboard on a computer). Internally, the center ultrasonic sensor is used to detect if there is an something near to the screen and nudges the screensaver.
 - screensaver.allow
   - parameters: ```{
   "seconds": 120
@@ -494,7 +559,7 @@ D3 Software Version: 1.1.3
 - screensaver.requestStatus
   - event: `DRScreensaver.status`
 - screensaver.show
-- Other Events:
+- other:
   - `DRScreensaver.allow`
   - `DRScreensaver.hide`
   - `DRScreensaver.prevent`
@@ -512,15 +577,23 @@ D3 Software Version: 1.1.3
 - system.reboot
 - system.requestPerformanceModel
   - event: `DRSystem.performanceModel`
-  - event: `DRSystem.performanceModelError`
-  - event: `DRSystem.performanceModelSuccess`
+event: `DRSystem.performanceModelError`
+event: `DRSystem.performanceModelSuccess`
+  - event: `DRSystem.performanceModel`
+event: `DRSystem.performanceModelError`
+event: `DRSystem.performanceModelSuccess`
+  - event: `DRSystem.performanceModel`
+event: `DRSystem.performanceModelError`
+event: `DRSystem.performanceModelSuccess`
 - system.screen.setBrightness
   - parameters: ```{
   "percent": 0.7,
   "fadeMs": 500
 }```
   - event: `DRSystem.brightness`
-  - event: `DRSystem.brightnessFadeComplete`
+event: `DRSystem.brightnessFadeComplete`
+  - event: `DRSystem.brightness`
+event: `DRSystem.brightnessFadeComplete`
 - system.setPerformanceModel
   - parameters: ```{
   "name": ""
@@ -529,12 +602,17 @@ D3 Software Version: 1.1.3
   - This sets the underlying clock speeds of the system using Nvidia's nvpmodel and jetson_clocks tools.
   - This is important to set if your code uses significant CPU or GPU. Our code is optimized to run on the lowest performance model during a standard call to use less battery.
 - system.shutdown
+  - event: `DRSystem.shutdown`
 - system.tegrastats.enable
   - event: `DRSystem.tegrastats`
-  - event: `DRSystem.tegrastatsError`
+event: `DRSystem.tegrastatsError`
+  - event: `DRSystem.tegrastats`
+event: `DRSystem.tegrastatsError`
 - system.tegrastats.disable
 
 ### tilt
+
+This moves the motor for the cameras. You probably want to use the ptz commands instead.
 - tilt.enable
 - tilt.disable
 - tilt.default
@@ -551,6 +629,12 @@ D3 Software Version: 1.1.3
   "percent": 1
 }```
   - Percent range is 0.0 - 1.0, with 0.0 being tilted up and 1.0 tilted down.
+- other:
+  - `DRMotor.willStart`
+  - `DRMotor.start`
+  - `DRMotor.stop`
+  - `DRMotor.position`
+  - `DRMotor.arrive`
 
 ### ultrasonic
 - ultrasonic.enable
@@ -571,7 +655,7 @@ D3 Software Version: 1.1.3
   - event: `DRUltrasonic.startCycle`
 - ultrasonic.stop
   - event: `DRUltrasonic.stopCycle`
-- Other Events:
+- other:
   - `DRUltrasonic.measurement` is fired each time a new sensor is read.
 
 ### updater
@@ -592,7 +676,7 @@ D3 Software Version: 1.1.3
   - parameters: ```{
   "url": ""
 }```
-- Other Events:
+- other:
   - `DRUpdater.downloaded`
   - `DRUpdater.installDebBegin`
   - `DRUpdater.installDebRemoteDownload`
@@ -600,6 +684,8 @@ D3 Software Version: 1.1.3
   - `DRUpdater.installDebRemoteError`
 
 ### webrtc
+
+This runs a native binary that uses hardware video encoding to save battery life and achieve HD resolutions at 30 fps. The binary is based on [Google's open source WebRTC](https://webrtc.org/) code. See [our WebRTC example](https://github.com/doublerobotics/d3-sdk/tree/master/examples/standby-webrtc) for how to interact with this to implement your own driver client with this video stream.
 - webrtc.enable
   - parameters: ```{
   "servers": [
@@ -616,7 +702,7 @@ D3 Software Version: 1.1.3
   - parameters: ```{
   "percent": 1
 }```
-- Other Events:
+- other:
   - `DRWebRTC.stats`
 
-Documentation Generated: 2021-02-15 08:36:30
+Documentation Generated: 2021-02-20 21:08:41
