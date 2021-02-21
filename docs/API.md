@@ -43,9 +43,7 @@ D3 Software Version: 1.1.3
 }```
 - other:
   - event: `DRBase.poleMotionStop` fires only if travel data is running.
-event: `DRBase.poleMotionStart` fires only if travel data is running.
-  - event: `DRBase.poleMotionStop` fires only if travel data is running.
-event: `DRBase.poleMotionStart` fires only if travel data is running.
+  - event: `DRBase.poleMotionStart` fires only if travel data is running.
 
 ### calibration
 - calibration.requestValues
@@ -160,9 +158,7 @@ event: `DRBase.poleMotionStart` fires only if travel data is running.
 }```
 - other:
   - event: `DRFloorDepth.frame`
-event: `DRFrontDepth.frame`
-  - event: `DRFloorDepth.frame`
-event: `DRFrontDepth.frame`
+  - event: `DRFrontDepth.frame`
 
 ### dockTracker
 - dockTracker.enable
@@ -225,9 +221,7 @@ The endpoint represents the connection with Double's calling servers and driver 
 - endpoint.unlinkIdentity
 - other:
   - event: `DREndpointModule.sessionBegin`
-event: `DREndpointModule.sessionEnd`
-  - event: `DREndpointModule.sessionBegin`
-event: `DREndpointModule.sessionEnd`
+  - event: `DREndpointModule.sessionEnd`
 
 ### events
 - events.subscribe
@@ -370,11 +364,7 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - To dock, use `dock: forward` (backward is not supported) and pass dockId:XXXXXX
   - To undock, use: `action: exitDock`
   - angleRadians is the angle to end at, after reaching the target
-  - x/y units are in meters, x = forward/back, y = left/right
-To dock, use `dock: forward` (backward is not supported) and pass dockId:XXXXXX
-To undock, use: `action: exitDock`
-angleRadians is the angle to end at, after reaching the target
-event: `DRNavigateModule.target`
+  - event: `DRNavigateModule.target`
 - navigate.ultrasonic.ignore
 - navigate.ultrasonic.avoid
 - other:
@@ -412,46 +402,10 @@ event: `DRNavigateModule.target`
   - phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
   - identity: optional.  (WPA2 Ent. username)
   - anonymousIdentity: optional.  (802-1x.anonymous-identity)
-  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
-ipv4method: optional.  [auto|link-local|manual|shared|disabled]
-eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
-phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
-identity: optional.  (WPA2 Ent. username)
-anonymousIdentity: optional.  (802-1x.anonymous-identity)
-event: `DRNetwork.join`
-event: `DRNetwork.joinError`
-event: `DRNetwork.joinResult`
-event: `DRNetwork.joinRetry`
-  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
-ipv4method: optional.  [auto|link-local|manual|shared|disabled]
-eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
-phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
-identity: optional.  (WPA2 Ent. username)
-anonymousIdentity: optional.  (802-1x.anonymous-identity)
-event: `DRNetwork.join`
-event: `DRNetwork.joinError`
-event: `DRNetwork.joinResult`
-event: `DRNetwork.joinRetry`
-  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
-ipv4method: optional.  [auto|link-local|manual|shared|disabled]
-eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
-phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
-identity: optional.  (WPA2 Ent. username)
-anonymousIdentity: optional.  (802-1x.anonymous-identity)
-event: `DRNetwork.join`
-event: `DRNetwork.joinError`
-event: `DRNetwork.joinResult`
-event: `DRNetwork.joinRetry`
-  - wifiSecKeyMgmt: optional. [none|ieee8021x|wpa-none|wpa-psk|wpa-eap] defaults to wpa-eap if other optional params are set, but this one is not set.
-ipv4method: optional.  [auto|link-local|manual|shared|disabled]
-eap: optional.  [leap|md5|tls|peap|ttls|sim|fast|pwd]
-phase2auth: optional.  [pap|chap|mschap|mschapv2|gtc|otp|md5|tls]
-identity: optional.  (WPA2 Ent. username)
-anonymousIdentity: optional.  (802-1x.anonymous-identity)
-event: `DRNetwork.join`
-event: `DRNetwork.joinError`
-event: `DRNetwork.joinResult`
-event: `DRNetwork.joinRetry`
+  - event: `DRNetwork.join`
+  - event: `DRNetwork.joinError`
+  - event: `DRNetwork.joinResult`
+  - event: `DRNetwork.joinRetry`
 - network.join.cancel
 - network.requestActiveAP
   - event: `DRNetwork.scanActiveAP`
@@ -577,23 +531,15 @@ The screensaver turns the LCD backlight off based on inactivity. You can call sc
 - system.reboot
 - system.requestPerformanceModel
   - event: `DRSystem.performanceModel`
-event: `DRSystem.performanceModelError`
-event: `DRSystem.performanceModelSuccess`
-  - event: `DRSystem.performanceModel`
-event: `DRSystem.performanceModelError`
-event: `DRSystem.performanceModelSuccess`
-  - event: `DRSystem.performanceModel`
-event: `DRSystem.performanceModelError`
-event: `DRSystem.performanceModelSuccess`
+  - event: `DRSystem.performanceModelError`
+  - event: `DRSystem.performanceModelSuccess`
 - system.screen.setBrightness
   - parameters: ```{
   "percent": 0.7,
   "fadeMs": 500
 }```
   - event: `DRSystem.brightness`
-event: `DRSystem.brightnessFadeComplete`
-  - event: `DRSystem.brightness`
-event: `DRSystem.brightnessFadeComplete`
+  - event: `DRSystem.brightnessFadeComplete`
 - system.setPerformanceModel
   - parameters: ```{
   "name": ""
@@ -605,9 +551,7 @@ event: `DRSystem.brightnessFadeComplete`
   - event: `DRSystem.shutdown`
 - system.tegrastats.enable
   - event: `DRSystem.tegrastats`
-event: `DRSystem.tegrastatsError`
-  - event: `DRSystem.tegrastats`
-event: `DRSystem.tegrastatsError`
+  - event: `DRSystem.tegrastatsError`
 - system.tegrastats.disable
 
 ### tilt
@@ -705,4 +649,4 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - `DRWebRTC.stats`
 
-Documentation Generated: 2021-02-20 21:08:41
+Documentation Generated: 2021-02-21 00:20:29
