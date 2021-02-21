@@ -1,5 +1,14 @@
-# D3 API
+# D3 API Commands and Events
+
 D3 Software Version: 1.1.3
+
+Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
+
+## About Events
+Some commands trigger specific events (noted under each command), but events can be sent at any time automatically by the system. In most cases, when a value changes in a status-type packet, that event will be fired automatically. Some events are sent continuously, such as the pose, since they are continuously changing.
+
+Subscribe to events (see events section below) from your application. By default, no events are sent.
+
 ## Commands
 [api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
 ### api
@@ -649,4 +658,5 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - `DRWebRTC.stats`
 
-Documentation Generated: 2021-02-21 00:20:29
+Documentation Generated: 2021-02-21 00:47:07
+
