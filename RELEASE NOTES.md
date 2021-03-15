@@ -1,5 +1,41 @@
 # Release Notes
 
+## D3 Software Version 1.2.0 (March 15, 2021)
+
+Drivers
+- In-Call Sidebar Apps
+  - New "Satellite Camera" app shares a person's mobile phone camera with the driver
+  - New "On-Screen Text" app lets you type words on the robot screen
+  - Share Web Page: added QR code option
+  - Developer API to create custom sidebar apps, see more: https://github.com/doublerobotics/d3-sdk
+- Detect QR Codes option (with mixed reality graphics)
+- New toolbar layout to support sidebar apps
+- Moved local video to the left and sidebar to the right
+
+Bug Fixes
+- Fixed volume button not showing sometimes
+- Brought back fade transition to narrow camera
+- Improved frame rate performance with default call settings
+- Mixed reality graphics render in narrow camera
+- Fixed anonymous viewers list display in Multi-Viewer
+- Better error message when a Visitor Pass robot not available
+
+Developers
+- In-Call Sidebar Apps:
+  - Monitor > Sidebar tab development tool
+  - Documentation: https://github.com/doublerobotics/d3-sdk/blob/master/docs/Sidebar%20Apps.md
+- QR Code Detector:
+  - Enable with camera.tagDetector.enable
+  - See options for customizing in Monitor > API > camera
+- Fixed ptz in and out API commands
+- Merged Monitor > System tab into Dashboard
+- New Monitor > API tab replaces Commands and Events
+- Monitor > API > Watch Event
+- Notifications for RealSense firmware installation
+- Monitor fixes on Windows
+- Changed Monitor > Terminal to default to double user
+- Endpoint option to not retract kickstands at start of call
+
 ## D3 Software Version 1.1.2 (February 10, 2021)
 
 Drivers
