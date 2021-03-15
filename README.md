@@ -24,6 +24,11 @@ You can also write applications in any other language that will run on the devic
 
 With a native application, you can get access to raw sensor data, such as direct access to the RealSense D430 depth sensors. You could also create a user interface using any GUI toolkit that you prefer.
 
+#### In-Call Sidebar Apps
+
+In-Call sidebar apps give developers the ability to add functionality to the driving experience in our desktop web driver client. [See more](docs/Sidebar%20Apps.md)
+
+
 ## Examples
 
 1. [nodejs-basic](examples/nodejs-basic) - This example shows the most basic way to communicate with the d3 service in Node.js.
@@ -41,6 +46,7 @@ With a native application, you can get access to raw sensor data, such as direct
 - [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
 - [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
 - [Security](docs/Security.md) discusses security measures and how to maintain security when deploying.
+- [Sidebar Apps](docs/Sidebar%20Apps.md) discusses In-Call Sidebar Apps.
 - [Software Updates](docs/Software%20Updates.md) discusses installing software and updating the D3 software.
 - [Startup](docs/Startup.md) describes how to customize what runs on boot.
 - [USB Drive](docs/USB%20Drive.md) shows how to set up a USB flash drive for writing and executing code.
