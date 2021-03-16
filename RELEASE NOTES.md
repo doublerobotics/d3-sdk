@@ -1,5 +1,10 @@
 # Release Notes
 
+## D3 Software Version 1.2.1 (March 15, 2021)
+
+Developers
+- Fixed a bug with GUI debug mode
+
 ## D3 Software Version 1.2.0 (March 15, 2021)
 
 Drivers
