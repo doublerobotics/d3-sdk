@@ -96,7 +96,7 @@ function endCall() {
 }
 
 // DRDoubleSDK is preloaded in the web view on the robot, so it will show errors on the Glitch.com editor
-if (DRDoubleSDK == "undefined") {
+if (typeof DRDoubleSDK === 'undefined' || DRDoubleSDK === null) {
   var DRDoubleSDK = {};
 }
 
