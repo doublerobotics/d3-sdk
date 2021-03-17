@@ -28,7 +28,6 @@ With a native application, you can get access to raw sensor data, such as direct
 
 In-Call sidebar apps give developers the ability to add functionality to the driving experience in our desktop web driver client. [See more](docs/Sidebar%20Apps.md)
 
-
 ## Examples
 
 1. [nodejs-basic](examples/nodejs-basic) - This example shows the most basic way to communicate with the d3 service in Node.js.
@@ -52,6 +51,9 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 - [USB Drive](docs/USB%20Drive.md) shows how to set up a USB flash drive for writing and executing code.
 - [WPA2 Manual Config](docs/WPA2%20Manual%20Config.md) describes how to add a more complex WiFi network, such as EAP-TLS.
 
+## Developer Mailing List
+
+Get an email with release notes for each update by signing up for the [developer mailing list](https://docs.google.com/forms/d/e/1FAIpQLSdviSXqa2-YE6DecT3w9RJP2q-_2P922gK_iuV6HcizZ65SnQ/viewform).
 
 ## [D3 System Diagram](system-diagram.pdf)
 
