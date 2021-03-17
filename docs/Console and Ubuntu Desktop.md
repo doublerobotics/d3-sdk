@@ -44,6 +44,41 @@ This may result in the D3 GUI taking over the screen or, if you have an HDMI mon
 
 We don't recommend using D3 in normal telepresence mode while running the Ubuntu Desktop, since there are likely to be some weird bugs. Desktop mode is useful for development or desktop GUI applications.
 
+### Enable Touchscreen and USB ports in graphical.target
+
+If you switch to graphical.target (gdm3 desktop), the rear USB ports and the touchscreen will not work by default. You need to set up the following helper service to do this.
+
+Create the following text files in your `/home/double/` folder:
+
+`/home/double/d3-helper.sh`:
+
+    #!/bin/bash
+
+    echo 486 > /sys/class/gpio/export
+    echo 480 > /sys/class/gpio/export
+    echo 0 > /sys/class/gpio/gpio486/value
+    echo 0 > /sys/class/gpio/gpio480/value
+
+    insmod /lib/modules/4.9.140+/kernel/drivers/input/touchscreen/goodix.ko
+
+`/home/double/d3-helper.service`:
+
+    [Unit]
+    Description=D3 Desktop Driver Helper
+
+    [Service]
+    ExecStart=/home/double/d3-helper.sh
+
+    [Install]
+    WantedBy=graphical.target
+
+Then run the following commands:
+
+    sudo ln -s /home/double/d3-helper.service /etc/systemd/system/d3-helper.service
+    sudo systemctl enable d3-helper
+
+You'll also want to make sure the service called `enable-realsense` runs on startup, which it does by default. That will turn on the internal power to the RealSense devices.
+
 ## Writing Code on D3
 
 Alternatively, an excellent way to develop on a D3 via your dev machine is to use the new [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview) feature. We use it internally and it works really well.
