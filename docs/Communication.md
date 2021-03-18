@@ -102,3 +102,8 @@ On another device:
 
 or connect with a TCP socket from any programming language of your choice.
 
+## API Explorer
+
+The Developer Monitor's API tab is an interactive explorer for testing and discovering commands and events. Click the links to fill the Send Command and Watch Event widgets. The logs show you exactly what's happening when you click buttons in the user interface. The Monitor automatically subscribes to all events, so you can discover events that are available to you.
+
+![D3 Developer Monitor API Explorer](../monitor-api-preview.png "D3 Developer Monitor API Explorer")
