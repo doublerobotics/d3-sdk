@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sidebar</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://drive.doublerobotics.com/sidebar/v1/DRSidebarSDK.js"></script>
+	<style>
+		html {
+			background: #292929;
+			height: 100%;
+		}
+		body {
+			color: white;
+			font-family: Sans-serif;
+		}
+		h1 {
+			background: #000000;
+			border-bottom: 1px solid #ffffff3b;
+			font-size: 12px;
+			font-weight: bold;
+			left: 0px;
+			margin: 0px 0px 10px 0px;
+			padding: 7px 10px;
+			position: absolute;
+			right: 0px;
+			top: 0px;
+		}
+		#content {
+			margin-top: 40px;
+		}
+		input[type=button] {
+			padding: 5px 10px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Basic Example</h1>
+	<div id="content">
+		<input type="button" value="Send Hello" onclick="DRSidebarSDK.sendMessage({ text: 'Hello from sidebar' })">
+		<h3>From D3:</h3>
+		<div id="log"></div>
+	</div>
+	<script>
+		function q(q) { return document.querySelector(q); }
+
+		var log = q("#log");
+
+		DRSidebarSDK.onmessage = (message) => {
+			log.innerHTML += "<p>" + message.text + "</p>";
+		};
+	</script>
+</body>
+</html>

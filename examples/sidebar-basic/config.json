@@ -1,0 +1,19 @@
+{
+  "name": "Example",
+  "version": "1.0.0",
+  "description": "Lorem ipsum",
+  "sidebar": {
+    "url": "https://drive.doublerobotics.com/sidebar/example/sidebar.html",
+    "allow": "",
+    "xClassName": "lighten",
+    "width": "300",
+    "minWidth": "250",
+    "maxWidth": "450"
+  },
+  "accessoryWebView": {
+    "url": "https://drive.doublerobotics.com/sidebar/example/d3.html",
+    "trusted": true,
+    "transparent": true
+  },
+  "performanceModel": "lowest"
+}

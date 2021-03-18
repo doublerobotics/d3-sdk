@@ -6,10 +6,12 @@ Your app consists of a webpage for the driver's sidebar and a web page for the r
 
 You can pass messages between these views via our built-in call infrastructure.
 
+See the [basic sidebar app example](https://github.com/doublerobotics/d3-sdk/tree/master/examples/sidebar-basic).
+
 ### Sidebar Page
 
   - Displayed in sidebar iframe of desktop web driver client
-  - 300px wide, height scales automatically
+  - Settable width (300px recommended) and optionally adjustable, height scales automatically
   - Include small JavaScript SDK for communication
 
 There are built-in commands to for you to send messages back and forth.
@@ -27,8 +29,6 @@ Receive message:
     DRSidebarSDK.onmessage = (message) => {
       // handle message
     };
-
-See the [basic sidebar app example](https://github.com/doublerobotics/d3-sdk/tree/master/examples/sidebar-basic).
 
 ### Accessory Page
 

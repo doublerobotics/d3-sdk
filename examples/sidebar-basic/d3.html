@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Basic Example</title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			color: white;
+			font-family: Sans-serif;
+			overflow: hidden;
+		}
+		#content {
+			background: rgba(0, 0, 0, 0.8);
+			border-radius: 10px;
+			bottom: 40px;
+			left: 40px;
+			overflow: auto;
+			padding: 20px;
+			position: absolute;
+			right: 40px;
+			top: 55%;
+		}
+		input[type=button] {
+			padding: 5px 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<input type="button" value="Send Hello" onclick="sendMessage({ text: 'Hello from D3' })">
+		<h3>From Sidebar:</h3>
+		<div id="log"></div>
+	</div>
+	<script>
+		function q(q) { return document.querySelector(q); }
+
+		var log = q("#log");
+
+		function sendMessage(message) {
+			DRDoubleSDK.sendCommand('endpoint.driverSidebar.sendMessage', {
+				message: message,
+				targetOrigin: '*'
+			});
+		}
+
+		function handleMesage(message) {
+			log.innerHTML += "<p>" + message.text + "</p>";
+		}
+
+		if ("DRDoubleSDK" in window) {
+			DRDoubleSDK.on("event", (message) => {
+				switch (message.class +"."+ message.key) {
+					case "DREndpointModule.messageFromDriverSidebar": {
+						if (message.data) {
+							handleMesage(message.data);
+						}
+						break;
+					}
+				}
+			});
+			DRDoubleSDK.on("connect", () => {
+				DRDoubleSDK.sendCommand("events.subscribe", {
+					events: [
+						"DREndpointModule.messageFromDriverSidebar"
+					]
+				});
+			});
+		}
+	</script>
+</body>
+</html>
