@@ -35,6 +35,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 1. [standby-basic](examples/standby-basic) - This example shows the most basic usage of displaying a page on screen, sending commands via DRDoubleSDK and processing incoming events.
 1. [standby-camera](examples/standby-camera) - This example shows how to set the output of the camera as a v4l2 source and show it on the D3 screen with `getUserMedia`.
 1. [standby-webrtc](examples/standby-webrtc) - This example shows how to orchestrate a WebRTC call using a custom standby screen and the native WebRTC implementation that takes advantage of the hardware h264 encoder.
+1. [sidebar-basic](examples/sidebar-basic) - This example shows the basic functionality of an In-Call Sidebar App.
 
 ## Documentation
 
