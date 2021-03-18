@@ -39,7 +39,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 
 ## Documentation
 
-### Core Knowledge
+### D3 API
 
 - [API](docs/API.md) lists all commands and events.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
