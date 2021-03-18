@@ -143,3 +143,10 @@ The accessory web view is technically not required. You could load just a plain 
 ### https in the Monitor > Sidebar dev tool
 
 While you can use https for the sidebar page in the dev iframe, browser security [blocks certain features](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts/features_restricted_to_secure_contexts) because the parent page is loaded over http. The [production driver client](https://drive.doublerobotics.com) is always loaded over https, so these restrictions do not apply.
+
+### Sidebar Dev Tool
+
+The Sidebar tab in the Developer Monitor is useful while creating and testing your sidebar code. It will simulate the in-call experience without launching a call each time and shows a log of your messages passing back and forth. You can also trigger it to start during a call, like you would do from your custom standby screen or other code running on D3.
+
+![Sidebar App Dev Tool](../sidebar-dev-tool-preview.png "Sidebar App Dev Tool")
+
