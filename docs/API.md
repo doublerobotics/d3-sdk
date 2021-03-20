@@ -1,7 +1,5 @@
 # D3 API Commands and Events
 
-D3 Software Version: 1.1.3
-
 Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
 
 ## About Events
@@ -11,13 +9,14 @@ Subscribe to events (see events section below) from your application. By default
 
 ## Commands
 [api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
+
 ### api
 - api.requestStatus
   - event: `DRAPI.status`
 - api.requestLocalConfiguration
-  - event: `DRAPI.localConfiguration`
+  - event: `DRAPI.localConfiguration` `APP_VERSION` is the currently installed software version.
 - api.requestRemoteConfiguration
-  - event: `DRAPI.remoteConfiguration`
+  - event: `DRAPI.remoteConfiguration` `d3_app_version` is the latest available software version. `d3_app_deb` is the URL of the deb file to install. Pass that URL to `updater.deb.installRemote` to install the update.
 - api.setConfig
   - parameters: ```{
   "key": "STANDBY_URL",
@@ -74,6 +73,7 @@ Subscribe to events (see events section below) from your application. By default
   - If the camera is already enabled, the size will not be changed, but the new output(`template` or`gstreamer`) will be applied.
 - camera.disable
 - camera.capturePhoto
+  - event: `DRCamera.photo`
 - camera.graphics.enable
 - camera.graphics.disable
 - camera.graphics.setLevel
@@ -94,7 +94,7 @@ Subscribe to events (see events section below) from your application. By default
   "y": 0.5,
   "highlight": true
 }```
-  - event: DRCamera.hitResult
+  - event: `DRCamera.hitResult`
 - camera.move.speed
   - parameters: ```{
   "x": 0,
@@ -119,6 +119,38 @@ Subscribe to events (see events section below) from your application. By default
   - parameters: ```{
   "fps": 30
 }```
+- camera.tagDetector.enable
+  - parameters: ```{
+  "format": "QRCode",
+  "interval": 1,
+  "tryHarder": true,
+  "tryRotate": true,
+  "binarizer": "LocalAverage",
+  "gpuBinarizer": 2,
+  "windowSize": 1000,
+  "windowOverlap": 200,
+  "anyTag": true,
+  "tags": [
+    {
+      "content": "example.com",
+      "action": "newTabLink",
+      "shape": "info",
+      "size": 0.085,
+      "red": 1,
+      "green": 0,
+      "blue": 0
+    }
+  ]
+}```
+  - `anyTag` is if the system should detect any tag it finds or just ones in the `tags` array.
+  - `tags` is an array of objects representing the tags you want to detect and each one's attributes.
+  - `content` is the value of the tag's data and the primary key identifying the tag.
+  - `shape` is one of: info, disc, star, heart
+  - `action` is one of: newTabLink, sidebarLink, sidebarApp, text
+  - `size` is the width (and height) of the physical QR code in meters.
+  - `red`, `green`, and `blue` set the color of the shape icon (0.0 - 1.0)
+  - event: `DRCamera.tag`
+- camera.tagDetector.disable
 - camera.zoom
   - parameters: ```{
   "sensor": 0,
@@ -128,7 +160,7 @@ Subscribe to events (see events section below) from your application. By default
   "updateRegion": true,
   "time": 0.5
 }```
-  - Sensor 0 (wide) or 1 (narrow), zoom is 1.0 - 4.0, x and y are -1.0 = 1.0, updateRegion crops exposure and white balance, animationLength is in seconds
+  - Sensor 0 (wide) or 1 (narrow), zoom is 1.0 - 4.0, x and y are -1.0 - 1.0, updateRegion crops exposure and white balance, animationLength is in seconds
   - Note: We recommend using ptz.* commands instead of camera.zoom directly.
 
 ### depth
@@ -199,7 +231,27 @@ The endpoint represents the connection with Double's calling servers and driver 
   "targetOrigin": "example.com"
 }```
   - This command is in development, not stable, and could disappear.
-  - For targetOrigin definition, see: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+  - For targetOrigin definition, see [postMessage on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+- endpoint.driverSidebar.start
+  - parameters: ```{
+  "name": "Example",
+  "version": "1.0.0",
+  "description": "Lorem ipsum",
+  "sidebar": {
+    "url": "https://example.com/sidebar.html",
+    "startOpen": true,
+    "allow": ""
+  },
+  "accessoryWebView": {
+    "url": "https://example.com/d3.html",
+    "trusted": true,
+    "transparent": true
+  },
+  "xClassName": "lighten",
+  "performanceModel": "lowest"
+}```
+  - See [In-Call Sidebar App documentation on GitHub](https://github.com/doublerobotics/d3-sdk/blob/master/docs/Sidebar.md)
+- endpoint.driverSidebar.stop
 - endpoint.requestIdentity
   - parameters: ```{
   "requestSetupLink": false
@@ -223,7 +275,11 @@ The endpoint represents the connection with Double's calling servers and driver 
   "hideVisitorPassButton": false,
   "defaultAudioBoostLevel": 0,
   "enableFloorDepthClipping": false,
-  "playCallChimes": false
+  "playCallChimes": false,
+  "enableTagDetector": false,
+  "defaultSpeakerVolume": 0.67,
+  "skipRetractKickstand": false,
+  "disableTiltMinLimit": false
 }```
   - All parameters are optional.
   - These options are saved to disk and are used at the beginning of a call from Double's driver clients.
@@ -303,16 +359,16 @@ You can create your own standby screen as a web page or you can create your own 
 - gui.watchdog.disallow
 - gui.watchdog.reset
 - other:
-  - `DRGUI.accessoryWebView.close`
-  - `DRGUI.accessoryWebView.hide`
-  - `DRGUI.accessoryWebView.message.from`
-  - `DRGUI.accessoryWebView.message.to`
-  - `DRGUI.accessoryWebView.open`
-  - `DRGUI.accessoryWebView.reload`
-  - `DRGUI.accessoryWebView.show`
-  - `DRGUI.message.from`
-  - `DRGUI.message.to`
-  - `DRGUI.standbyWatchdog`
+  - event: `DRGUI.accessoryWebView.close`
+  - event: `DRGUI.accessoryWebView.hide`
+  - event: `DRGUI.accessoryWebView.message.from`
+  - event: `DRGUI.accessoryWebView.message.to`
+  - event: `DRGUI.accessoryWebView.open`
+  - event: `DRGUI.accessoryWebView.reload`
+  - event: `DRGUI.accessoryWebView.show`
+  - event: `DRGUI.message.from`
+  - event: `DRGUI.message.to`
+  - event: `DRGUI.standbyWatchdog`
 
 ### imu
 - imu.enable
@@ -320,8 +376,8 @@ You can create your own standby screen as a web page or you can create your own 
 - imu.pause
 - imu.resume
 - other:
-  - `DRIMU.converge` fires after startup when the data becomes usable.
-  - `DRIMU.imu` contains the quaternion from the IMU and fires up to 60 times per second.
+  - event: `DRIMU.converge` fires after startup when the data becomes usable.
+  - event: `DRIMU.imu` contains the quaternion from the IMU and fires up to 60 times per second.
 
 ### mics
 - mics.setBoost
@@ -377,7 +433,10 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
 - navigate.ultrasonic.ignore
 - navigate.ultrasonic.avoid
 - other:
-  - `DRNavigateModule.arrive`
+  - event: `DRNavigateModule.arrive`
+  - event: `DRObstacleAvoidance.level`
+  - event: `DRObstacleAvoidance.cancelDiversion`
+  - event: `DRObstacleAvoidance.modifyDriveControls`
 
 ### network
 - network.checkIfCaptivePortal
@@ -437,24 +496,24 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - This value is used until the d3 service restarts or operating system is rebooted. This can also be set with startup.json config "BGSCAN_DEFAULT".
   - [bgscan docs](https://wiki.archlinux.org/index.php/wpa_supplicant#Roaming)
 - other:
-  - `DRNetwork.apDisconnect`
-  - `DRNetwork.bandwidth`
-  - `DRNetwork.connect`
-  - `DRNetwork.connecting`
-  - `DRNetwork.disconnect`
-  - `DRNetwork.hop`
-  - `DRNetwork.hopSignal`
-  - `DRNetwork.monitorLog`
-  - `DRNetwork.networkError`
-  - `DRNetwork.rejoin`
-  - `DRNetwork.rejoinError`
-  - `DRNetwork.rejoinRetry`
-  - `DRNetwork.reset`
-  - `DRNetwork.resetAfterBoot`
-  - `DRNetwork.resetError`
-  - `DRNetwork.signal`
-  - `DRNetwork.state`
-  - `DRNetworkChecker.result`
+  - event: `DRNetwork.apDisconnect`
+  - event: `DRNetwork.bandwidth`
+  - event: `DRNetwork.connect`
+  - event: `DRNetwork.connecting`
+  - event: `DRNetwork.disconnect`
+  - event: `DRNetwork.hop`
+  - event: `DRNetwork.hopSignal`
+  - event: `DRNetwork.monitorLog`
+  - event: `DRNetwork.networkError`
+  - event: `DRNetwork.rejoin`
+  - event: `DRNetwork.rejoinError`
+  - event: `DRNetwork.rejoinRetry`
+  - event: `DRNetwork.reset`
+  - event: `DRNetwork.resetAfterBoot`
+  - event: `DRNetwork.resetError`
+  - event: `DRNetwork.signal`
+  - event: `DRNetwork.state`
+  - event: `DRNetworkChecker.result`
 
 ### pose
 - pose.pause
@@ -464,7 +523,7 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - event: `DRPose.resetOrigin`
 - pose.resume
 - other:
-  - `DRPose.pose` is fired continuously as the robot's pose changes. It includes both an estimate of the base's position in world coordinates based on the wheel encoder data and the head's position based on the IMU data and knowledge of the robot's model and degrees of freedom.
+  - event: `DRPose.pose` is fired continuously as the robot's pose changes. It includes both an estimate of the base's position in world coordinates based on the wheel encoder data and the head's position based on the IMU data and knowledge of the robot's model and degrees of freedom.
 
 ### ptz
 
@@ -523,10 +582,10 @@ The screensaver turns the LCD backlight off based on inactivity. You can call sc
   - event: `DRScreensaver.status`
 - screensaver.show
 - other:
-  - `DRScreensaver.allow`
-  - `DRScreensaver.hide`
-  - `DRScreensaver.prevent`
-  - `DRScreensaver.show`
+  - event: `DRScreensaver.allow`
+  - event: `DRScreensaver.hide`
+  - event: `DRScreensaver.prevent`
+  - event: `DRScreensaver.show`
 
 ### system
 - system.enableRearUSBPorts
@@ -569,6 +628,8 @@ This moves the motor for the cameras. You probably want to use the ptz commands 
 - tilt.enable
 - tilt.disable
 - tilt.default
+- tilt.minLimit.enable
+- tilt.minLimit.disable
 - tilt.move
   - parameters: ```{
   "speed": 0
@@ -583,11 +644,11 @@ This moves the motor for the cameras. You probably want to use the ptz commands 
 }```
   - Percent range is 0.0 - 1.0, with 0.0 being tilted up and 1.0 tilted down.
 - other:
-  - `DRMotor.willStart`
-  - `DRMotor.start`
-  - `DRMotor.stop`
-  - `DRMotor.position`
-  - `DRMotor.arrive`
+  - event: `DRMotor.willStart`
+  - event: `DRMotor.start`
+  - event: `DRMotor.stop`
+  - event: `DRMotor.position`
+  - event: `DRMotor.arrive`
 
 ### ultrasonic
 - ultrasonic.enable
@@ -609,7 +670,7 @@ This moves the motor for the cameras. You probably want to use the ptz commands 
 - ultrasonic.stop
   - event: `DRUltrasonic.stopCycle`
 - other:
-  - `DRUltrasonic.measurement` is fired each time a new sensor is read.
+  - event: `DRUltrasonic.measurement` is fired each time a new sensor is read.
 
 ### updater
 - updater.base.installHex
@@ -629,12 +690,13 @@ This moves the motor for the cameras. You probably want to use the ptz commands 
   - parameters: ```{
   "url": ""
 }```
+  - Get the latest deb from `api.requestRemoteConfiguration`
 - other:
-  - `DRUpdater.downloaded`
-  - `DRUpdater.installDebBegin`
-  - `DRUpdater.installDebRemoteDownload`
-  - `DRUpdater.installDebRemoteDownloadBegin`
-  - `DRUpdater.installDebRemoteError`
+  - event: `DRUpdater.downloaded`
+  - event: `DRUpdater.installDebBegin`
+  - event: `DRUpdater.installDebRemoteDownload`
+  - event: `DRUpdater.installDebRemoteDownloadBegin`
+  - event: `DRUpdater.installDebRemoteError`
 
 ### webrtc
 
@@ -656,7 +718,9 @@ This runs a native binary that uses hardware video encoding to save battery life
   "percent": 1
 }```
 - other:
-  - `DRWebRTC.stats`
+  - event: `DRWebRTC.stats`
 
-Documentation Generated: 2021-02-21 00:47:07
+D3 Software Version: 1.2.1
+
+Documentation Generated: 2021-03-20 20:19:34
 
