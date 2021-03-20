@@ -2,6 +2,8 @@
 
 Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
 
+D3 Software Version: 1.2.1
+
 ## About Events
 Some commands trigger specific events (noted under each command), but events can be sent at any time automatically by the system. In most cases, when a value changes in a status-type packet, that event will be fired automatically. Some events are sent continuously, such as the pose, since they are continuously changing.
 
@@ -217,8 +219,7 @@ Subscribe to events (see events section below) from your application. By default
   "tableOfContents": true,
   "internal": false
 }```
-- documentation.requestEvents
-- documentation.requestForGitHub
+  - event: `DRDocumentation.commands`
 
 ### endpoint
 
@@ -720,7 +721,5 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - event: `DRWebRTC.stats`
 
-D3 Software Version: 1.2.1
-
-Documentation Generated: 2021-03-20 20:19:34
+Documentation Generated: 2021-03-20 20:33:12
 
