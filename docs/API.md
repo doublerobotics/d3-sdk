@@ -2,7 +2,7 @@
 
 Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
 
-D3 Software Version: 1.2.1
+D3 Software Version: 1.2.2
 
 ## About Events
 Some commands trigger specific events (noted under each command), but events can be sent at any time automatically by the system. In most cases, when a value changes in a status-type packet, that event will be fired automatically. Some events are sent continuously, such as the pose, since they are continuously changing.
@@ -280,7 +280,13 @@ The endpoint represents the connection with Double's calling servers and driver 
   "enableTagDetector": false,
   "defaultSpeakerVolume": 0.67,
   "skipRetractKickstand": false,
-  "disableTiltMinLimit": false
+  "disableTiltMinLimit": false,
+  "lowQualityOnly": false,
+  "disableApp_multiviewer": false,
+  "disableApp_screensharing": false,
+  "disableApp_webpage": false,
+  "disableApp_text": false,
+  "disableApp_satellite": false
 }```
   - All parameters are optional.
   - These options are saved to disk and are used at the beginning of a call from Double's driver clients.
@@ -332,7 +338,9 @@ You can create your own standby screen as a web page or you can create your own 
 }```
 - gui.disable
 - gui.accessoryWebView.close
+  - event: `DRGUI.accessoryWebView.close`
 - gui.accessoryWebView.hide
+  - event: `DRGUI.accessoryWebView.hide`
 - gui.accessoryWebView.open
   - parameters: ```{
   "url": "https://www.doublerobotics.com",
@@ -342,11 +350,24 @@ You can create your own standby screen as a web page or you can create your own 
   "keyboard": false
 }```
   - Trusted means that Electron will load the window.DRDoubleSDK object, which is a channel to communicate with d3-api. This will give that web page access to all of the d3-api commands, so you should trust only your own URLs.
+  - event: `DRGUI.accessoryWebView.open`
 - gui.accessoryWebView.open.screenSharingReceive
 - gui.accessoryWebView.message.to
+  - parameters: ```{
+  "hello": "world"
+}```
+  - The parameters can be any custom JSON object.
+  - event: `DRGUI.accessoryWebView.message.to`
 - gui.accessoryWebView.message.from
+  - parameters: ```{
+  "hello": "world"
+}```
+  - The parameters can be any custom JSON object.
+  - event: `DRGUI.accessoryWebView.message.from`
 - gui.accessoryWebView.reload
+  - event: `DRGUI.accessoryWebView.reload`
 - gui.accessoryWebView.show
+  - event: `DRGUI.accessoryWebView.show`
 - gui.go.standby
   - parameters: ```{
   "url": "https://d3.doublerobotics.com"
@@ -354,21 +375,14 @@ You can create your own standby screen as a web page or you can create your own 
 - gui.go.wifi
 - gui.hide
 - gui.message.to
+  - event: `DRGUI.message.to`
 - gui.message.from
+  - event: `DRGUI.message.from`
 - gui.show
 - gui.watchdog.allow
 - gui.watchdog.disallow
 - gui.watchdog.reset
 - other:
-  - event: `DRGUI.accessoryWebView.close`
-  - event: `DRGUI.accessoryWebView.hide`
-  - event: `DRGUI.accessoryWebView.message.from`
-  - event: `DRGUI.accessoryWebView.message.to`
-  - event: `DRGUI.accessoryWebView.open`
-  - event: `DRGUI.accessoryWebView.reload`
-  - event: `DRGUI.accessoryWebView.show`
-  - event: `DRGUI.message.from`
-  - event: `DRGUI.message.to`
   - event: `DRGUI.standbyWatchdog`
 
 ### imu
@@ -480,8 +494,12 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - event: `DRNetwork.scanActiveAP`
 - network.requestInfo
   - event: `DRNetwork.info`
+  - event: `DRNetwork.infoError`
 - network.requestLocation
   - event: `DRNetwork.location`
+- network.requestMac
+  - event: `DRNetwork.mac`
+  - event: `DRNetwork.macError`
 - network.requestScan
   - parameters: ```{
   "rssi": false
@@ -494,7 +512,7 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - parameters: ```{
   "value": "simple:30:-65:300"
 }```
-  - This value is used until the d3 service restarts or operating system is rebooted. This can also be set with startup.json config "BGSCAN_DEFAULT".
+  - This value is used until the d3 service restarts or operating system is rebooted. This can also be set with `api.setConfig` `BGSCAN_DEFAULT`.
   - [bgscan docs](https://wiki.archlinux.org/index.php/wpa_supplicant#Roaming)
 - other:
   - event: `DRNetwork.apDisconnect`
@@ -505,7 +523,6 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - event: `DRNetwork.hop`
   - event: `DRNetwork.hopSignal`
   - event: `DRNetwork.monitorLog`
-  - event: `DRNetwork.networkError`
   - event: `DRNetwork.rejoin`
   - event: `DRNetwork.rejoinError`
   - event: `DRNetwork.rejoinRetry`
@@ -721,5 +738,5 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - event: `DRWebRTC.stats`
 
-Documentation Generated: 2021-03-20 20:33:12
+Documentation Generated: 2021-04-02 07:20:12
 
