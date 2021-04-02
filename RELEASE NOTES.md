@@ -1,5 +1,68 @@
 # Release Notes
 
+## D3 Software Version 1.2.2 (April 2, 2021)
+
+Drivers
+- Seamless transition between camera sensors while zooming
+- Right click triggers ctrl menu for PTZ
+
+D3
+- Added show/hide password button on WiFi screen
+- Fixed MAC address sometimes not showing on WiFi screen
+
+Fleet Management
+- New roles:
+  - Super Admin: all privileges, same as the old Admin role.
+  - Admin: new role! Can manage robots and users, but not settings.
+  - User: standard user, no changes.
+- New Visitor Pass email
+  - Uses time zone from FM page or defaults to robot's time zone, based on last location
+  - Custom fleet-wide message
+  - Custom per-pass message (appended to fleet-wide message)
+  - Calendar event attachment for future dates
+  - Includes name of fleet
+  - Better design
+- New Security settings:
+  - Hide native Double account log in button on custom subdomain
+  - Disable inviting new native Double accounts
+  - Session timeout
+  - Allow adding external drivers to robots (defaults to disabled)
+- New Call Features settings:
+  - Standby Screen
+    - Show Visitor Pass Button (default on)
+  Beginning of Call
+    - Play Chimes (beginning and end)
+	- Retract Kickstands (default on)
+	- Detect QR Codes
+	- Speaker Volume
+	- Audio Boost
+  During Call
+    - Allow Photo (default on)
+	- Mute mic during pole motion (default on)
+	- Restrict to "Low" target quality only (limits bandwidth)
+	- Allow driver to disable obstacle avoidance (not recommended)
+  In-Call Sidebar Apps
+    - Multi-Viewer
+	- Screen Sharing
+	- Display Web Page
+	- On-Screen Text
+	- Satellite Camera
+	- Custom Sidebar App (made by developers)
+- Other
+  - Robot detail page shows show driver of current call and End Call button
+  - Moved Admin Logs link to Settings > Admin tab
+  - Fixed user display name in robots list
+  - Fix error page bug on SSO
+
+Developers
+- Install new D3 software from Fleet Management (robot detail page)
+- FM shows current standby page and developer mode status
+- More notifications in the Monitor
+- Better GUI standby watchdog notification
+- Option to limit target quality (bandwidth): endpoint.setOptions { lowQualityOnly: true }
+- Blocked "page rendering slowly" notification when tab is in background
+- Updated to Electron 9.4.4 and dependencies
+
 ## D3 Software Version 1.2.1 (March 15, 2021)
 
 Developers
