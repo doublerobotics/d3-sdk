@@ -1,5 +1,13 @@
 # Release Notes
 
+## D3 Software Version 1.2.3 (April 21, 2021)
+
+D3
+- Fixed an issue with the list of WiFi networks when there's a huge number of APs detected
+
+Developers
+- Minor API tab edits and Monitor fixes
+
 ## D3 Software Version 1.2.2 (April 2, 2021)
 
 Drivers
