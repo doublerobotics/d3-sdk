@@ -1,5 +1,27 @@
 # Release Notes
 
+## D3 Software Version 1.2.4 (May 14, 2021)
+
+Drivers
+- Log in with email
+- SSO users who enter their email are redirected to their Fleet subdomain (only with magic email domain)
+- Capture Photo in Satellite Camera sidebar app
+- Fixed picture-in-picture during Multi-Viewer
+- Fixed position of Navigating... message
+- Fixed edge arrows when obstacle avoidance is off
+- Fixed photo when QR code detection is enabled (only occurred on some units)
+- Show better message to SSO users attempting to accept an invite
+
+Fleet Management
+- Use fleet's subdomain for Visitor Pass links
+- Fixed SAML user display name on robots list and email notifications
+- Fixed layout errors on robot detail page
+
+Developers
+- Monitor: P keyboard shortcut for kickstands (Park)
+- Automatic recovery from JSON syntax errors in /etc/d3/startup.json
+- Fixed repeated "Downloading deb..." notifications
+
 ## D3 Software Version 1.2.3 (April 21, 2021)
 
 D3
