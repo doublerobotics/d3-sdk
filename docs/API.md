@@ -2,7 +2,7 @@
 
 Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
 
-D3 Software Version: 1.2.2
+D3 Software Version: 1.2.5
 
 ## About Events
 Some commands trigger specific events (noted under each command), but events can be sent at any time automatically by the system. In most cases, when a value changes in a status-type packet, that event will be fired automatically. Some events are sent continuously, such as the pose, since they are continuously changing.
@@ -73,6 +73,7 @@ Subscribe to events (see events section below) from your application. By default
     - `h264ForWebRTC` hardware encoding to h264 and publishes to the d3-webrtc binary
     - `v4l2` outputs to /dev/video9 and shows up as a webcam "D3_Camera" in Electron/Chromium
   - If the camera is already enabled, the size will not be changed, but the new output(`template` or`gstreamer`) will be applied.
+  - `reset` will reset the gstreamer output (optional)
 - camera.disable
 - camera.capturePhoto
   - event: `DRCamera.photo`
@@ -111,12 +112,14 @@ Subscribe to events (see events section below) from your application. By default
   "template": "h264ForWebRTC",
   "gstreamer": "appsrc name=d3src ! autovideosink",
   "width": 1152,
-  "height": 720
+  "height": 720,
+  "reset": false
 }```
   - Send only one of either `template` or `gstreamer`. Possible values for template:
     - `screen` shows on-screen using "nvoverlaysink"
     - `h264ForWebRTC` hardware encoding to h264 and publishes to the d3-webrtc binary
     - `v4l2` outputs to /dev/video9 and shows up as a webcam "D3_Camera" in Electron/Chromium
+  - `reset` will reset the gstreamer output (optional)
 - camera.setMaxFps
   - parameters: ```{
   "fps": 30
@@ -167,7 +170,15 @@ Subscribe to events (see events section below) from your application. By default
 
 ### depth
 - depth.floor.enable
+  - parameters: ```{
+  "preset": "default",
+  "recentFrames": 6
+}```
 - depth.front.enable
+  - parameters: ```{
+  "preset": "default",
+  "recentFrames": 2
+}```
 - depth.floor.disable
 - depth.front.disable
 - depth.floor.pause
@@ -232,7 +243,9 @@ The endpoint represents the connection with Double's calling servers and driver 
   "targetOrigin": "example.com"
 }```
   - This command is in development, not stable, and could disappear.
-  - For targetOrigin definition, see [postMessage on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+  - For `targetOrigin` definition, see [postMessage on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+  - event: `DREndpointModule.messageToDriverSidebar`
+  - event: `DREndpointModule.messageFromDriverSidebar`
 - endpoint.driverSidebar.start
   - parameters: ```{
   "name": "Example",
@@ -257,7 +270,7 @@ The endpoint represents the connection with Double's calling servers and driver 
   - parameters: ```{
   "requestSetupLink": false
 }```
-  - event: `DREndpointModule.identity`
+  - event: `DREndpointModule.status`
 - endpoint.requestModuleStatus
   - event: `DREndpointModule.status`
 - endpoint.requestOptions
@@ -290,6 +303,8 @@ The endpoint represents the connection with Double's calling servers and driver 
 }```
   - All parameters are optional.
   - These options are saved to disk and are used at the beginning of a call from Double's driver clients.
+- endpoint.setQualityPreference
+- endpoint.resetToLastQualityPreference
 - endpoint.unlinkIdentity
 - other:
   - event: `DREndpointModule.sessionBegin`
@@ -738,5 +753,5 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - event: `DRWebRTC.stats`
 
-Documentation Generated: 2021-04-02 07:20:12
+Documentation Generated: 2021-05-18 05:53:58
 
