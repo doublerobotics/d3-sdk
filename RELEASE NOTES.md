@@ -1,5 +1,12 @@
 # Release Notes
 
+## D3 Software Version 1.2.5 (May 17, 2021)
+
+Developer
+- Fixed device hostname to "double-desktop" if not set
+- Fixed stats (i) in web drive client
+- Option to reset gstreamer output in camera.enable and camera.output
+
 ## D3 Software Version 1.2.4 (May 14, 2021)
 
 Drivers
