@@ -1,5 +1,21 @@
 # Release Notes
 
+## D3 Software Version 1.2.6 (May 24, 2021)
+
+Fleet Management
+- Added location to call CSV downloads
+
+Double 3
+- Fixed iOS-to-D3 and D3 Multi-Viewer by pinning Vonage/OpenTok version v2.19.3
+- Updated to Electron 12.0.9 and other dependencies
+
+Developers
+- Fixed duplicate events going to Electron pages
+- Option to hide accessory view when opening
+- Show /tmp/doubleapi incoming commands in Command Log as "api" type
+- Clean up old cmake files in /usr/local/lib/cmake/realsense2/
+- Fixed a spammy log
+
 ## D3 Software Version 1.2.5 (May 17, 2021)
 
 Developer
