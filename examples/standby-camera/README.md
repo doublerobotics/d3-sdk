@@ -1,5 +1,7 @@
 # Display Camera Example
 
+[See documentation for Standby Apps](../docs/Standby%20Apps.md)
+
 This example simply displays the output of the camera on the D3 screen using the standard `getUserMedia`.
 
 1. **Enable the camera**. In the developer monitor, click the Dashboard > Camera > 1152x720 button.
