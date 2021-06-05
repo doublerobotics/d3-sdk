@@ -42,6 +42,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 ### D3 API
 
 - [API](docs/API.md) lists all commands and events.
+- [Click-to-Drive](docs/Click-to-Drive.md) describes how to implement Click-to-Drive in your application.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
 - [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
 - [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
