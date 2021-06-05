@@ -66,9 +66,9 @@ This is the equivalent of sending `DRDoubleSDK.sendCommand("gui.watchdog.reset")
 
 Upload your files to a web server. Type the address of your web server into the Standby GUI input field and click the "Go" button.
 
-![D3 Debug Monitor - Standby URL](monitor-standby-url.png "D3 Debug Monitor - Standby URL")
+![D3 Debug Monitor - Standby URL](../examples/standby-basic/monitor-standby-url.png "D3 Debug Monitor - Standby URL")
 
-## Launch on Startup
+### Launch on Startup
 
 You can set your URL to be the default standby screen with this command:
 
