@@ -1,6 +1,6 @@
 # Software Updates
 
-In Developer Mode, automatic software updates are __disabled__. There may be breaking changes in new updates. You can manually install updates on the System tab of the Monitor page by clicking the "Download and Install DEB" button. The field is pre-populated with the latest version.
+In Developer Mode, automatic software updates are __disabled__. There may be breaking changes in new updates. You can manually install updates from the Monitor > Dashboard tab in the left column by clicking "Check for Update", then the Install button, if an update is available.
 
 We send out an email when each new D3 software update is available. Be sure that you've signed up for the (developer mailing list](https://www.doublerobotics.com/developer.html).
 
