@@ -18,7 +18,7 @@ The d3 service may restart.
 
 ### Don't upgrade [librealsense](https://github.com/IntelRealSense/librealsense)
 
-It's important that you don't upgrade the system librealsense because there may be breaking changes. As of D3 software version 1.0.31, the supported version of librealsense is 2.29.0.
+It's important that you don't upgrade the system librealsense because there may be breaking changes. As of D3 software version 1.1.0, the supported version of librealsense is 2.41.0.
 
 ### Recovery
 
