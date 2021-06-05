@@ -39,20 +39,21 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 
 ## Documentation
 
+- [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
+- [Release Notes](RELEASE%20NOTES.md) shows the history of new features.
+
 ### D3 API
 
 - [API](docs/API.md) lists all commands and events.
 - [Click-to-Drive](docs/Click-to-Drive.md) describes how to implement Click-to-Drive in your application.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
-- [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
-- [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
-- [Performance Model](docs/Performance%20Model.md) describes how to control battery life vs high performance CPU and GPU.
-- [Release Notes](RELEASE%20NOTES.md) shows the history of new features.
 - [Sidebar Apps](docs/Sidebar%20Apps.md) discusses In-Call Sidebar Apps.
 
 ### System Configuration
 
 - [Console and Ubuntu Desktop](docs/Console%20and%20Ubuntu%20Desktop.md) describes how to access Ubuntu in standard ways.
+- [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
+- [Performance Model](docs/Performance%20Model.md) describes how to control battery life vs high performance CPU and GPU.
 - [Security](docs/Security.md) discusses security measures and how to maintain security when deploying.
 - [Software Updates](docs/Software%20Updates.md) discusses installing software and updating the D3 software.
 - [Startup](docs/Startup.md) describes how to customize what runs on boot.
