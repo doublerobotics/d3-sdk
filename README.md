@@ -46,7 +46,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
 - [Developer Mode](docs/Developer%20Mode.md) describes entering and exiting developer mode.
 - [Glossary](docs/Glossary.md) describes key terms used throughout this documentation.
-- [Performance Model](Performance$20Model.md) describes how to control battery life vs high performance CPU and GPU.
+- [Performance Model](docs/Performance$20Model.md) describes how to control battery life vs high performance CPU and GPU.
 - [Release Notes](RELEASE%20NOTES.md) shows the history of new features.
 - [Sidebar Apps](docs/Sidebar%20Apps.md) discusses In-Call Sidebar Apps.
 
