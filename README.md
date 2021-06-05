@@ -48,6 +48,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 - [Click-to-Drive](docs/Click-to-Drive.md) describes how to implement Click-to-Drive in your application.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
 - [Sidebar Apps](docs/Sidebar%20Apps.md) discusses In-Call Sidebar Apps.
+- [Standby Apps](docs/Standby%20Apps.md) discusses Standby Apps.
 
 ### System Configuration
 
