@@ -1,6 +1,6 @@
 # Basic Standby Screen
 
-[See documentation for Standby Apps](../docs/Standby%20Apps.md)
+[See documentation for Standby Apps](../../docs/Standby%20Apps.md)
 
 Before accessing any developer features, your Double 3 will need to be [put into developer mode](../../docs/Developer%20Mode.md).
 
