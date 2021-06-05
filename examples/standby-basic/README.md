@@ -6,6 +6,14 @@ This page explains how to display a custom, interactive screen on your Double 3'
 
 Open the Developer Monitor of your D3 in Chrome on your computer by visiting: ````http://YOUR_D3_IP:8080````. You can find your D3's local IP by tapping the WiFi icon on the default standby screen.
 
+## Important – Reset Watchdog
+
+For maximum reliability, the system will automatically reload your page when you fail to reset the watchdog fast enough. This is in case your code locks up or begins running too slowly. If it fails several times in a row, it will restart Electron and try your page again. You must send this command faster than every 3 seconds:
+
+    DRDoubleSDK.resetWatchdog();
+
+This is the equivalent of sending `DRDoubleSDK.sendCommand("gui.watchdog.reset")`. You could also disable the watchdog functionality altogether with the `gui.watchdog.disallow` command, but this is not recommended.
+
 ## Host Your Files
 
 Upload the files from this example to a web server or launch a web server on your local computer. You can do that easily in a terminal by changing to this repository directory and [running a static web server](https://gist.github.com/willurd/5720255), such as:
@@ -32,20 +40,20 @@ There is a bug in Chrome DevTools while the "screencast" feature is on (the defa
 
 ## Launching Your Standby Screen on Startup
 
-In order to make your new standby screen launch when your D3 starts up, you will need to [modify the startup.json](../../docs/Startup.md).  SSH into your D3 and edit the file `/etc/d3/startup.json`.  Add the property called "STANDBY_URL" in the "config" section, with a value containing the URL of your standby screen.
+You can set your URL to be the default standby screen with this command:
 
+    api.setConfig
     {
-       "config":{
-          "DEBUG_MODE": true,
-          "STANDBY_URL": "http://YOUR-PAGE.com/"
-       },
-       "commands":[
-          { "c": "events.server.enable" },
-          { "c": "gui.enable" },
-          { "c": "screensaver.allow" },
-          { "c": "network.requestLocation" },
-          { "c": "endpoint.enable", "delayMs": 2000 }
-       ]
+      "key": "STANDBY_URL",
+      "value": "https://d3.doublerobotics.com"
+    }
+
+Then reboot from the Monitor toolbar menu or send `system.reboot` or `system.restartService`. To reset it to the default, send:
+
+    api.setConfig
+    {
+      "key": "STANDBY_URL",
+      "value": null
     }
 
 ## Adding More Functionality
