@@ -9,21 +9,22 @@ export function DriverWebRTC(iceConfig, log, sendToServer, hangUpCall) {
   this.handleVideoOffer = async (msg) => {
     log("Received call offer");
 
-    if (!localVideo.srcObject) {
-      localVideo.srcObject = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-    }
-
     pc = new RTCPeerConnection(iceConfig);
     pc.onicecandidate = (event) => this.onicecandidate(event);
     pc.oniceconnectionstatechange = () => this.oniceconnectionstatechange();
     pc.onicegatheringstatechange = () => this.onicegatheringstatechange();
     pc.onsignalingstatechange = () => this.onsignalingstatechange();
     pc.ontrack = (event) => this.ontrack(event);
-    
-    localVideo.srcObject.getTracks().forEach(track => pc.addTrack(track, localVideo.srcObject));
 
     var desc = new RTCSessionDescription(msg);
     await pc.setRemoteDescription(desc);
+
+    if (!localVideo.srcObject) {
+      localVideo.srcObject = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    }
+
+    localVideo.srcObject.getTracks().forEach(track => pc.addTrack(track, localVideo.srcObject));
+
     await pc.setLocalDescription(await pc.createAnswer());
     sendToServer(pc.localDescription);
 
