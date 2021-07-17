@@ -2,7 +2,7 @@
 
 Send commands from your application to interact with the system. [See examples on GitHub](https://github.com/doublerobotics/d3-sdk).
 
-D3 Software Version: 1.2.5
+D3 Software Version: 1.3.1
 
 ## About Events
 Some commands trigger specific events (noted under each command), but events can be sent at any time automatically by the system. In most cases, when a value changes in a status-type packet, that event will be fired automatically. Some events are sent continuously, such as the pose, since they are continuously changing.
@@ -10,7 +10,7 @@ Some commands trigger specific events (noted under each command), but events can
 Subscribe to events (see events section below) from your application. By default, no events are sent.
 
 ## Commands
-[api](#api), [base](#base), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
+[api](#api), [base](#base), [bluetooth](#bluetooth), [calibration](#calibration), [camera](#camera), [depth](#depth), [dockTracker](#dockTracker), [documentation](#documentation), [endpoint](#endpoint), [events](#events), [gridManager](#gridManager), [gui](#gui), [imu](#imu), [mics](#mics), [navigate](#navigate), [network](#network), [pose](#pose), [ptz](#ptz), [speaker](#speaker), [screensaver](#screensaver), [system](#system), [tilt](#tilt), [ultrasonic](#ultrasonic), [updater](#updater), [webrtc](#webrtc)
 
 ### api
 - api.requestStatus
@@ -51,9 +51,48 @@ Subscribe to events (see events section below) from your application. By default
   "degrees": 0,
   "degreesWhileDriving": 0
 }```
+  - `degrees` is required
 - other:
   - event: `DRBase.poleMotionStop` fires only if travel data is running.
   - event: `DRBase.poleMotionStart` fires only if travel data is running.
+
+### bluetooth
+- bluetooth.enable
+  - The enabled state is automatically saved with the endpoint options across boots.
+  - event: `DRBluetooth.enable`
+  - event: `DRBluetooth.enableError`
+- bluetooth.cancelScan
+  - Cancel an active scan.
+- bluetooth.disable
+  - event: `DRBluetooth.disable`
+- bluetooth.requestList
+  - List paired devices.
+  - event: `DRBluetooth.list`
+- bluetooth.requestScan
+  - parameters: ```{
+  "timeout": 15000
+}```
+  - Scan for new devices.
+  - `timeout` is the time limit in milliseconds. (optional)
+  - event: `DRBluetooth.scan`
+- bluetooth.pair
+  - parameters: ```{
+  "mac": "XX:XX:XX:XX:XX:XX",
+  "timeout": 8000
+}```
+  - You must run a scan first.
+  - `mac` is the MAC address from the scan result.
+  - `timeout` is the time limit in milliseconds. (optional)
+  - event: `DRBluetooth.pair`
+- bluetooth.unpair
+  - parameters: ```{
+  "mac": "XX:XX:XX:XX:XX:XX"
+}```
+  - `mac` is the MAC address from the list.
+- bluetooth.unpairAll
+- other:
+  - event: `DRBluetooth.connect` device connected
+  - event: `DRBluetooth.disconnect` device disconnected
 
 ### calibration
 - calibration.requestValues
@@ -67,13 +106,15 @@ Subscribe to events (see events section below) from your application. By default
   "template": "screen",
   "gstreamer": "appsrc name=d3src ! autovideosink"
 }```
-  - Send only one of either `template` or `gstreamer`. Possible values for template:
-    - `preheat` turns the camera on, but no output
+  - `width` and `height` native sizes are 1152x720 or 1728x1080. For other sizes, video will be scaled and/or cropped. (optional)
+  - Send only one of either `template` or `gstreamer`.
+  - `template` possible values (one string or an array of strings for multiple outputs):
+    - `preheat` turns the camera on, but no output (not valid for multiple outputs)
     - `screen` shows on-screen using "nvoverlaysink"
     - `h264ForWebRTC` hardware encoding to h264 and publishes to the d3-webrtc binary
     - `v4l2` outputs to /dev/video9 and shows up as a webcam "D3_Camera" in Electron/Chromium
-  - If the camera is already enabled, the size will not be changed, but the new output(`template` or`gstreamer`) will be applied.
-  - `reset` will reset the gstreamer output (optional)
+    - Note: When sending an array of outputs, only native sizes are possible.
+  - `reset` will reset the template/gstreamer output (optional)
 - camera.disable
 - camera.capturePhoto
   - event: `DRCamera.photo`
@@ -95,8 +136,12 @@ Subscribe to events (see events section below) from your application. By default
   - parameters: ```{
   "x": 0.5,
   "y": 0.5,
-  "highlight": true
+  "highlight": true,
+  "passToNavigate": false
 }```
+  - `x` and `y` are normalized coordinates on the video frame (percentage across the screen, with 0.5, 0.5 being the center). 0, 0 is the top left. 1, 1 is the bottom right.
+  - `highlight` will flash a transparent circle over a dock icon or QR code icon, if it hits.
+  - `passToNavigate` will automatically send the hit result to the navigate.hitResult command, meaning that it will take action to drive to the target, enter the dock, click the QR code icon, or do nothing at all, if nothing active is found on the hit test.
   - event: `DRCamera.hitResult`
 - camera.move.speed
   - parameters: ```{
@@ -115,11 +160,15 @@ Subscribe to events (see events section below) from your application. By default
   "height": 720,
   "reset": false
 }```
-  - Send only one of either `template` or `gstreamer`. Possible values for template:
+  - `width` and `height` native sizes are 1152x720 or 1728x1080. For other sizes, video will be scaled and/or cropped. (optional)
+  - Send only one of either `template` or `gstreamer`.
+  - `template` possible values (one string or an array of strings for multiple outputs):
+    - `preheat` turns the camera on, but no output
     - `screen` shows on-screen using "nvoverlaysink"
     - `h264ForWebRTC` hardware encoding to h264 and publishes to the d3-webrtc binary
     - `v4l2` outputs to /dev/video9 and shows up as a webcam "D3_Camera" in Electron/Chromium
-  - `reset` will reset the gstreamer output (optional)
+    - Note: When sending an array of outputs, only native sizes are possible.
+  - `reset` will reset the template/gstreamer output (optional)
 - camera.setMaxFps
   - parameters: ```{
   "fps": 30
@@ -299,7 +348,9 @@ The endpoint represents the connection with Double's calling servers and driver 
   "disableApp_screensharing": false,
   "disableApp_webpage": false,
   "disableApp_text": false,
-  "disableApp_satellite": false
+  "disableApp_satellite": false,
+  "disableApp_zoom": false,
+  "enableBluetooth": false
 }```
   - All parameters are optional.
   - These options are saved to disk and are used at the beginning of a call from Double's driver clients.
@@ -358,11 +409,12 @@ You can create your own standby screen as a web page or you can create your own 
   - event: `DRGUI.accessoryWebView.hide`
 - gui.accessoryWebView.open
   - parameters: ```{
-  "url": "https://www.doublerobotics.com",
+  "url": "https://www.example.com",
   "trusted": false,
   "transparent": false,
   "backgroundColor": "#FFF",
-  "keyboard": false
+  "keyboard": false,
+  "hidden": false
 }```
   - Trusted means that Electron will load the window.DRDoubleSDK object, which is a channel to communicate with d3-api. This will give that web page access to all of the d3-api commands, so you should trust only your own URLs.
   - event: `DRGUI.accessoryWebView.open`
@@ -399,6 +451,8 @@ You can create your own standby screen as a web page or you can create your own 
 - gui.watchdog.reset
 - other:
   - event: `DRGUI.standbyWatchdog`
+  - event: `DRGUI.standbyWatchdogRelaunch`
+  - event: `DRGUI.standbyWatchdogResolved`
 
 ### imu
 - imu.enable
@@ -428,10 +482,12 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   - parameters: ```{
   "throttle": 0,
   "turn": 0,
-  "powerDrive": false
+  "powerDrive": false,
+  "disableTurn": false
 }```
   - Throttle and turn are -1.0 - 1.0. Actual driving speed will be filtered by the obstacle avoidance module.
   - To maintain smooth driving, this command must be sent repeatedly (every 200ms is recommended) or it will default to stopping after the timeout (500ms).
+- navigate.exitDock
 - navigate.hitResult
   - parameters: ```{
   "hit": true,
@@ -445,6 +501,10 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
   "level": 2
 }```
   - 0 = Off, 1 = Slow and stop for obstacles, 2 = Divert around obstacles
+- navigate.requestStatus
+  - event: `DRNavigateModule.status`
+- navigate.stop
+  - This is the equivalent of sending `navigate.cancelTarget` and `navigate.drive { throttle: 0, turn: 0 }`.
 - navigate.target
   - parameters: ```{
   "x": 0,
@@ -557,6 +617,8 @@ Use the navigate commands to drive. Manual driving is done through `navigate.dri
 - pose.resume
 - other:
   - event: `DRPose.pose` is fired continuously as the robot's pose changes. It includes both an estimate of the base's position in world coordinates based on the wheel encoder data and the head's position based on the IMU data and knowledge of the robot's model and degrees of freedom.
+  - event: `DRPose.yawRateProblem` is fired when a difference is detected between the turning rate (yaw of the base) as measured by the wheel encoders and the head IMU. If this happens, the robot will automatically stop in place, attempt to resolve the problem by recalibrating, then resume.
+  - event: `DRPose.yawRateGood` is fired when the problem is resolved.
 
 ### ptz
 
@@ -568,24 +630,24 @@ Use these commands to pan, tilt, and zoom around the video stream. It combines t
   "x": 0,
   "y": 0
 }```
-  - by is a positive integer stepping through preset zoom levels: 1, 1.33, 2, 2.95 (narrow camera starts to show), 6, 12
-  - time is seconds
-  - x and y are both -1.0 to 1.0, as percentages of the current viewport, with the center being 0,0.
+  - `by` is a positive integer stepping through preset zoom levels: 1, 1.33, 2, 2.95 (narrow camera starts to show), 6, 12
+  - `time` is seconds
+  - `x` and `y` are both -1.0 to 1.0, as percentages of the current viewport, with the center being 0,0.
 - ptz.move
   - parameters: ```{
   "x": 0,
   "y": 0,
   "zoom": 0
 }```
-  - x and y are both -1.0 to 1.0, as percentages of the maximum speed.
+  - `x` and `y` are both -1.0 to 1.0, as percentages of the maximum speed.
   - This must be sent repeatedly (faster than every 200 ms) to continue moving.
 - ptz.out
   - parameters: ```{
   "by": 1,
   "time": 0.5
 }```
-  - by is a positive integer stepping through preset zoom levels: 1, 1.33, 2, 2.95 (narrow camera starts to show), 6, 12
-  - speed is seconds
+  - `by` is a positive integer stepping through preset zoom levels: 1, 1.33, 2, 2.95 (narrow camera starts to show), 6, 12
+  - `speed` is seconds
 - ptz.requestStatus
   - event: `DRPTZModule.status`
 - ptz.reset
@@ -624,9 +686,10 @@ The screensaver turns the LCD backlight off based on inactivity. You can call sc
 - system.enableRearUSBPorts
 - system.disableRearUSBPorts
 - system.requestDiskSpace
-  - event: `DRSystem.checkDiskSpace`
+  - event: `DRSystem.diskSpace`
+  - event: `DRSystem.checkDiskSpace` (deprecated)
 - system.requestInfo
-  - event: `DRSystem.info`
+  - event: `DRSystem.systemInfo`
 - system.requestScreenshot
   - event: `DRSystem.screenshot`
 - system.reboot
@@ -726,6 +789,7 @@ This moves the motor for the cameras. You probably want to use the ptz commands 
   - Get the latest deb from `api.requestRemoteConfiguration`
 - other:
   - event: `DRUpdater.downloaded`
+  - event: `DRUpdater.firmwareAvailable`
   - event: `DRUpdater.installDebBegin`
   - event: `DRUpdater.installDebRemoteDownload`
   - event: `DRUpdater.installDebRemoteDownloadBegin`
@@ -753,5 +817,5 @@ This runs a native binary that uses hardware video encoding to save battery life
 - other:
   - event: `DRWebRTC.stats`
 
-Documentation Generated: 2021-05-18 05:53:58
+Documentation Generated: 2021-07-17 00:36:13
 
