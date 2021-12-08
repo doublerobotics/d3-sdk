@@ -89,6 +89,10 @@ Then type a command and press enter:
 
     {"c":"base.pole.stand"}
 
+Note that there are two common versions of Netcat, but only the OpenBSD version supports unix domain sockets. You can install it with:
+
+    sudo apt install netcat-openbsd
+
 ## Connect via Network (insecure)
 
 On D3:
