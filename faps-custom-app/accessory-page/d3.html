@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Basic Example</title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			color: white;
+			font-family: Sans-serif;
+			overflow: hidden;
+		}
+
+		#content {
+			/* background: rgba(151, 193, 57, 0.5); */
+			background: linear-gradient( rgba(151, 193, 57, 0.4), rgba(151, 193, 57, 0.9));
+  			/* background: linear-gradient(to right top, rgba(151, 193, 57, 0.8), rgba(151, 193, 57, 0.8)); */
+			border-radius: 10px;
+			bottom: 40px;
+			left: 40px;
+			overflow: auto;
+			padding: 20px;
+			position: absolute;
+			right: 40px;
+			top: 65%;
+		}
+
+		input[type=button]{
+			padding: 5px 10px;
+			border-radius: 5px;
+			font-size: large;
+		}
+
+		#warning {
+			padding: 5px 10px;
+			font-size: large;
+			color: black;
+		}
+
+		#allowMic {
+			background-color: rgba(0, 256, 0, 0.5);
+			color: black;
+		}
+
+		#refuseMic, #refuseCam, #confirm {
+			background-color: rgba(256, 0, 0, 0.5);
+			color: black;
+		}
+
+		table {
+			text-align: center;
+			vertical-align: middle;
+		}
+		tr {
+			height: 80px;
+		}
+		td {
+			width: 50%;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="content">
+		<table>
+			<tr>
+				<td>
+					<h1>Mikrofon</h1>
+				</td>
+				<td>
+					<h1>Kamera</h1>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h2 id="micValue"></h2>
+				</td>
+				<td>
+					<h2 id="camValue"></h2>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" id="allowMic" value="Mikrofon erlauben" onclick="allowMic()">
+					<input type="button" id="refuseMic" value="Mikrofon deaktivieren" onclick="refuseMic()">
+				</td>
+				<td>
+					<input type="button" id="refuseCam" value="Kamera deaktivieren" onclick="refuseCam()">
+					<div type="text" id="warning">Sind Sie sich sicher? Die Verbindung wird getrennt!</div>
+					<input type="button" id="confirm" style="white-space: pre-line" value="Deaktivieren" onclick="confirm()">
+				</td>
+			</tr>
+		</table>
+		<!-- <h3>From Sidebar:</h3>
+		<div id="log"></div> -->
+	</div>
+	<script>
+		function q(q) { return document.querySelector(q); }
+
+		//var log = q("#log");
+		let consent = false;
+
+		// function sendMessage(message) {
+		// 	DRDoubleSDK.sendCommand('endpoint.driverSidebar.sendMessage', {
+		// 		message: message,
+		// 		targetOrigin: '*'
+		// 	});
+		// }
+
+		// function handleMesage(message) {
+		// 	log.innerHTML += "<p>" + message.text + "</p>";
+		// }
+
+		function initScreen() {
+			q("#confirm").hidden = true;
+			q("#warning").hidden = true;
+			refuseMic();
+		}
+
+		function allowMic() {
+			consent = true;
+			q("#allowMic").hidden = true;
+			q("#refuseMic").hidden = false;
+			DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.25 });
+			DRDoubleSDK.sendCommand("mics.requestStatus");
+		}
+
+		function refuseMic() {
+			consent = false;
+			q("#refuseMic").hidden = true;
+			q("#allowMic").hidden = false;
+			DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
+			DRDoubleSDK.sendCommand("mics.requestStatus");
+		}
+
+		function refuseCam() {
+			q("#refuseCam").hidden = true;
+			q("#warning").hidden = false;
+			window.setTimeout(showConfirm, 1500);			
+		}
+
+		function showConfirm() {
+			q("#confirm").hidden = false;
+		}
+
+		function confirm() {
+			DRDoubleSDK.sendCommand("camera.disable");
+			DRDoubleSDK.sendCommand("endpoint.session.end");
+			q("#refuseCam").hidden = false;
+			q("#warning").hidden = true;
+			q("#confirm").hidden = true;
+		}
+
+		if ("DRDoubleSDK" in window) {
+			DRDoubleSDK.on("event", (message) => {
+				switch (message.class + "." + message.key) {
+					// case "DREndpointModule.messageFromDriverSidebar": {
+					// 	if (message.data) {
+					// 		handleMesage(message.data);
+					// 	}
+					// 	break;
+					// }
+					case "DRMics.status": {
+						q("#micValue").innerHTML = (message.data.boost == 0.0) ? 'AUS' : 'AN';
+						// Mikrofon soll standardmäßig ausgeschaltet sein 
+						if (message.data.boost > 0.0 && !consent) {
+							DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
+							DRDoubleSDK.sendCommand("mics.requestStatus");
+						}
+						break;
+					}
+					case "DRAPI.status": {
+						q("#camValue").innerHTML = message.data.camera ? 'AN' : 'AUS';
+						break;
+					}
+				}
+			});
+			DRDoubleSDK.on("connect", () => {
+				DRDoubleSDK.sendCommand("events.subscribe", {
+					events: [
+						"DREndpointModule.messageFromDriverSidebar",
+						"DRMics.status",
+						"DRAPI.status",
+					]
+				});
+				initScreen();				
+				DRDoubleSDK.sendCommand("mics.requestStatus");
+				DRDoubleSDK.sendCommand("api.requestStatus");
+			});
+		}
+	</script>
+</body>
+
+</html>

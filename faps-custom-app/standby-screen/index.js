@@ -7,6 +7,18 @@ function q(selector) {
 	return document.querySelector(selector);
 }
 
+function showGUI() {
+	DRDoubleSDK.sendCommand('gui.accessoryWebView.show');
+}
+
+const jsonSpec = {
+	  "url": "http://192.168.188.146:8000/d3.html",
+	  "trusted": true,
+	  "transparent": true,
+	  backgroundColor: "#96c139"
+  }
+var guiInterval;
+
 DRDoubleSDK.on("event", (message) => {
 	// Event messages include: { class: "DRNetwork", key: "info", data: {...} }
 	switch (message.class + "." + message.key) {
@@ -27,6 +39,25 @@ DRDoubleSDK.on("event", (message) => {
 			q("#title").innerHTML = message.data.identity.robot.nickname;
 			break;
 		}
+		case "DREndpointModule.sessionBegin": {
+			q("#testfield").innerText = 'Call has been started';
+			DRDoubleSDK.sendCommand("gui.accessoryWebView.open", jsonSpec);
+			guiInterval = window.setInterval(showGUI, 2000);
+			break;
+		}
+		case "DREndpointModule.sessionEnd": {
+			q("#testfield").innerText = 'Call has been ended';
+			DRDoubleSDK.sendCommand("gui.accessoryWebView.close");
+			clearInterval(guiInterval);
+			DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
+			DRDoubleSDK.sendCommand("base.kickstand.deploy");
+			break;
+		}
+		// DRMics
+		case "DRMics.status": {
+			q("#testfield").innerText = message.data.boost*100 + ' %';
+			break;
+		}
 
 	}
 });
@@ -40,14 +71,19 @@ function onConnect() {
 			events: [
 				"DRBase.status",
 				"DRNetwork.info",
-				"DREndpointModule.status"
+				"DREndpointModule.status",
+				"DREndpointModule.sessionBegin",
+				"DREndpointModule.sessionEnd",
+				"DRMics.status",
 			]
 		});
 
 		// Send commands any time – here, we're requesting initial info to show
+		DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.25 });
 		DRDoubleSDK.sendCommand("network.requestInfo");
 		DRDoubleSDK.sendCommand("base.requestStatus");
 		DRDoubleSDK.sendCommand("endpoint.requestIdentity", { requestSetupLink: false });
+		DRDoubleSDK.sendCommand("mics.requestStatus");
 
 		// Turn on the screen, but allow the screensaver to kick in later
 		DRDoubleSDK.sendCommand("screensaver.nudge");
