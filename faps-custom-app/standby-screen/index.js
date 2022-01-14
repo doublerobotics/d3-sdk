@@ -15,7 +15,8 @@ const jsonSpec = {
 	  "url": "https://192.168.188.178/accessory-page",
 	  "trusted": true,
 	  "transparent": true,
-	  backgroundColor: "#96c139"
+	  "backgroundColor": "#FFF",
+	  "hidden": false
   }
 const endpointSettings = {
 		"allowDisablingObstacleAvoidance": false,
@@ -58,13 +59,11 @@ DRDoubleSDK.on("event", (message) => {
 			break;
 		}
 		case "DREndpointModule.sessionBegin": {
-			q("#testfield").innerText = 'Call has been started';
 			DRDoubleSDK.sendCommand("gui.accessoryWebView.open", jsonSpec);
 			guiInterval = window.setInterval(showGUI, 2000);
 			break;
 		}
 		case "DREndpointModule.sessionEnd": {
-			q("#testfield").innerText = 'Call has been ended';
 			DRDoubleSDK.sendCommand("gui.accessoryWebView.close");
 			clearInterval(guiInterval);
 			DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
