@@ -12,11 +12,22 @@ function showGUI() {
 }
 
 const jsonSpec = {
-	  "url": "http://192.168.188.146:8000/d3.html",
+	  "url": "http://192.168.188.146:8000",
 	  "trusted": true,
 	  "transparent": true,
 	  backgroundColor: "#96c139"
   }
+const endpointSettings = {
+		"allowDisablingObstacleAvoidance": false,
+		"disablePhoto": true,
+		"hideVisitorPassButton": true,
+		"defaultSpeakerVolume": 0.45,
+		"disableApp_multiviewer": true,
+		"disableApp_screensharing": true,
+		"disableApp_webpage": true,
+		"disableApp_text": true,
+		"disableApp_satellite": true
+}
 var guiInterval;
 
 DRDoubleSDK.on("event", (message) => {
@@ -32,6 +43,13 @@ DRDoubleSDK.on("event", (message) => {
 		// DRBase
 		case "DRBase.status": {
 			q("#battery_value").innerText = message.data.battery + ' %';
+			if (message.data.charging) {
+				q("#chargingDiv").style.backgroundColor = "red";
+				q("#chargingDiv").innerHTML = "Ladevorgang aktiv";
+			} else {
+				q("#chargingDiv").style.backgroundColor = "inherit";
+				q("#chargingDiv").innerHTML = "kein Ladevorgang";
+			}
 			break;
 		}
 		// DREndpoint
@@ -55,10 +73,13 @@ DRDoubleSDK.on("event", (message) => {
 		}
 		// DRMics
 		case "DRMics.status": {
-			q("#testfield").innerText = message.data.boost*100 + ' %';
+			q("#mic_value").innerText = message.data.boost == 0.0 ? 'AUS' : 'AN';
 			break;
 		}
-
+		// DRAPI
+		case "DRAPI.status": {
+			q("#cam_value").innerHTML = message.data.camera ? 'AN' : 'AUS';
+		}
 	}
 });
 
@@ -75,18 +96,24 @@ function onConnect() {
 				"DREndpointModule.sessionBegin",
 				"DREndpointModule.sessionEnd",
 				"DRMics.status",
+                "DRAPI.status",
 			]
 		});
 
 		// Send commands any time – here, we're requesting initial info to show
-		DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.25 });
+		DRDoubleSDK.sendCommand("endpoint.setOptions", endpointSettings);
+		DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
 		DRDoubleSDK.sendCommand("network.requestInfo");
 		DRDoubleSDK.sendCommand("base.requestStatus");
 		DRDoubleSDK.sendCommand("endpoint.requestIdentity", { requestSetupLink: false });
 		DRDoubleSDK.sendCommand("mics.requestStatus");
+		DRDoubleSDK.sendCommand("api.requestStatus");
 
 		// Turn on the screen, but allow the screensaver to kick in later
 		DRDoubleSDK.sendCommand("screensaver.nudge");
+
+	// debug
+	q("#chargingDiv").style.backgroundColor = "blue";
 
 	} else {
 		window.setTimeout(onConnect, 100);
