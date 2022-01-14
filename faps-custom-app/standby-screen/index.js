@@ -38,7 +38,7 @@ DRDoubleSDK.on("event", (message) => {
 		// DRNetwork
 		case "DRNetwork.info": {
 			q("#wifi_ssid").innerText = (message.data.connection == "connected" && message.data.ssid) ? message.data.ssid : "Unknown";
-			q("#wifi_ip").innerText = message.data.internalIp;
+			q("#wifi_ip").innerText = (message.data.connection == "connected") ? 'Verbunden' : 'Getrennt';
 			break;
 		}
 		// DRBase
