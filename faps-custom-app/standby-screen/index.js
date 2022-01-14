@@ -12,7 +12,7 @@ function showGUI() {
 }
 
 const jsonSpec = {
-	  "url": "http://192.168.188.146:8000",
+	  "url": "https://192.168.188.178/accessory-page",
 	  "trusted": true,
 	  "transparent": true,
 	  backgroundColor: "#96c139"
