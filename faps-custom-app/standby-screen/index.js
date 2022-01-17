@@ -107,9 +107,8 @@ function onConnect() {
 		DRDoubleSDK.sendCommand("endpoint.requestIdentity", { requestSetupLink: false });
 		DRDoubleSDK.sendCommand("mics.requestStatus");
 		DRDoubleSDK.sendCommand("api.requestStatus");
-
-		// Turn on the screen, but allow the screensaver to kick in later
-		DRDoubleSDK.sendCommand("screensaver.nudge");
+		DRDoubleSDK.sendCommand("screensaver.prevent");
+		DRDoubleSDK.sendCommand("endpoint.enable");
 
 	// debug
 	q("#chargingDiv").style.backgroundColor = "blue";
@@ -129,5 +128,9 @@ window.onload = () => {
 	onConnect();
 	DRDoubleSDK.on("connect", () => {
 		onConnect();
+	});
+
+	DRDoubleSDK.on("disconnect", () => {
+		DRDoubleSDK.sendCommand("endpoint.disable");
 	});
 };
