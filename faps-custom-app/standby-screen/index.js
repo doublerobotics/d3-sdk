@@ -12,7 +12,7 @@ function showGUI() {
 }
 
 const jsonSpec = {
-	  "url": "https://192.168.188.178/accessory-page",
+	  "url": "https://smarthome.faps.rrze.net/accessory-page",
 	  "trusted": true,
 	  "transparent": true,
 	  "backgroundColor": "#FFF",
