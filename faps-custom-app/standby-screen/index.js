@@ -38,7 +38,7 @@ DRDoubleSDK.on("event", (message) => {
 		// DRNetwork
 		case "DRNetwork.info": {
 			q("#wifi_ssid").innerText = (message.data.connection == "connected" && message.data.ssid) ? message.data.ssid : "Unknown";
-			q("#wifi_ip").innerText = (message.data.connection == "connected") ? 'Verbunden' : 'Getrennt';
+			q("#wifi_ip").innerText = (message.data.connection == "connected") ? 'verbunden' : 'Getrennt';
 			break;
 		}
 		// DRBase
@@ -68,6 +68,7 @@ DRDoubleSDK.on("event", (message) => {
 			clearInterval(guiInterval);
 			DRDoubleSDK.sendCommand("mics.setBoost", { percent: 0.0 });
 			DRDoubleSDK.sendCommand("base.kickstand.deploy");
+			DRDoubleSDK.sendCommand("screensaver.prevent");
 			break;
 		}
 		// DRMics
