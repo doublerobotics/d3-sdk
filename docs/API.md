@@ -203,7 +203,7 @@ Subscribe to events (see events section below) from your application. By default
   - `action` is one of: newTabLink, sidebarLink, sidebarApp, text
   - `size` is the width (and height) of the physical QR code in meters.
   - `red`, `green`, and `blue` set the color of the shape icon (0.0 - 1.0)
-  - event: `DRCamera.tag`
+  - event: `DRCamera.tags`
 - camera.tagDetector.disable
 - camera.zoom
   - parameters: ```{

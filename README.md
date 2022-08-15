@@ -45,6 +45,7 @@ In-Call sidebar apps give developers the ability to add functionality to the dri
 ### D3 API
 
 - [API](docs/API.md) lists all commands and events.
+- [Cameras](docs/Cameras.md) describes how to access the on-board cameras in various ways.
 - [Click-to-Drive](docs/Click-to-Drive.md) describes how to implement Click-to-Drive in your application.
 - [Communication](docs/Communication.md) describes the command and event JSON packet structures.
 - [Sidebar Apps](docs/Sidebar%20Apps.md) discusses In-Call Sidebar Apps.

@@ -8,7 +8,13 @@ We send out an email when each new D3 software update is available. Be sure that
 
 We recommend that you do not automatically upgrade all system packages with apt-get, since breaking changes are possible. 
 
-### E: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a' to correct the problem.
+If you need to run `apt-get upgrade`, then you **must** run this first:
+
+    sudo apt-mark hold nvidia-l4t-kernel nvidia-l4t-kernel-dtbs nvidia-l4t-kernel-headers nvidia-l4t-bootloader
+
+If you do not run that first, then several hardware devices will stop working.
+
+#### E: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a' to correct the problem.
 
 If you experience this error when trying to install something with apt-get and the command above does not resolve it, you can try running this and trying to install again: 
 

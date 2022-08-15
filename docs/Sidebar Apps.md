@@ -144,7 +144,44 @@ The accessory web view is technically not required. You could load just a plain 
 
 While you can use https for the sidebar page in the dev iframe, browser security [blocks certain features](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts/features_restricted_to_secure_contexts) because the parent page is loaded over http. The [production driver client](https://drive.doublerobotics.com) is always loaded over https, so these restrictions do not apply.
 
-### Sidebar Dev Tool
+## Deploying to Drivers
+
+### Fleet Management
+
+You can deploy to your fleet of robots via Fleet Management. Go to Settings > Call Features > Custom Sidebar App (JSON)
+
+### Saved Locally on Robot
+
+You can add your JSON to the startup.json file. The best way to do this is to send the `api.setConfig` command with a value like (note that the value is an array):
+
+    {
+      "key": "INCALL_APPS",
+      "value": [
+        {
+          "name": "My App",
+          "version": "1.0.0",
+          "description": "Lorem ipsum",
+          "sidebar": {
+            "url": "https://drive.doublerobotics.com/sidebar/example/sidebar.html",
+            "allow": "",
+            "xClassName": "lighten",
+            "width": "300",
+            "minWidth": "250",
+            "maxWidth": "450"
+          },
+          "accessoryWebView": {
+            "url": "https://drive.doublerobotics.com/sidebar/example/d3.html",
+            "trusted": true,
+            "transparent": true
+          },
+          "performanceModel": "lowest"
+        }
+      ]
+    }
+
+The value is saved to disk in `/etc/d3/startup.json`. Restart service is required (command system.restartService or use the menu in the top right of the Developer Monitor) for the new value to take effect.
+
+## Sidebar Dev Tool
 
 The Sidebar tab in the Developer Monitor is useful while creating and testing your sidebar code. It will simulate the in-call experience without launching a call each time and shows a log of your messages passing back and forth. You can also trigger it to start during a call, like you would do from your custom standby screen or other code running on D3.
 
