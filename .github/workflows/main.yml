@@ -31,6 +31,7 @@ jobs:
         run: echo Hello, world!
 
       - name: HTTP Request Action
+        id: myRequest
         uses: fjogeleit/http-request-action@v1.11.0
         with:
           url: 'http://smarthome.faps.rrze.net:3000/notify'
