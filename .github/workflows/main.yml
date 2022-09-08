@@ -34,10 +34,11 @@ jobs:
         id: myRequest
         uses: fjogeleit/http-request-action@v1.11.0
         with:
+          my_token: ${{ secrets.TOKEN }}
           url: 'http://smarthome.faps.rrze.net:3000/notify'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"token": ${{ secrets.TOKEN }} }'
+          data: '{"token": ${{ my_token }} }'
       - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}
