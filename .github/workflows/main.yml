@@ -36,4 +36,4 @@ jobs:
         run: |
           curl -H 'Content-Type: application/json' \
           -d "{\"token\":\"$MY_TOKEN\"}" \
-          https://smarthome.faps.rrze.net/notify
+          -k https://smarthome.faps.rrze.net/notify
