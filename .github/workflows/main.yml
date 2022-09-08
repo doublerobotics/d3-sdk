@@ -31,16 +31,9 @@ jobs:
         run: echo Hello, world!
 
       - name: HTTP Request Action
-        id: myRequest
-        uses: fjogeleit/http-request-action@v1.11.0
         env:
           MY_TOKEN: ${{ secrets.TOKEN }}
-        with:          
-          url: 'http://smarthome.faps.rrze.net:3000/notify'
-          method: 'POST'
-          customHeaders: '{"Content-Type": "application/json"}'
-          data: "{\"token\":\"$MY_TOKEN\"}"
-      - name: Show Response
         run: |
-          echo ${{ steps.myRequest.outputs.response }}
-          echo ${{ steps.myRequest.outputs.headers }}
+          curl -H 'Content-Type: application/json' \
+          -d "{\"token\":\"$MY_TOKEN\"}" \
+          http://smarthome.faps.rrze.net:3000/notify
