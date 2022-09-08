@@ -39,7 +39,7 @@ jobs:
           url: 'http://smarthome.faps.rrze.net:3000/notify'
           method: 'POST'
           customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"token": "$MY_TOKEN" }'
+          data: "{\"token\":\"$MY_TOKEN\"}"
       - name: Show Response
         run: |
           echo ${{ steps.myRequest.outputs.response }}
