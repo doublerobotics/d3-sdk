@@ -1,3 +1,7 @@
 .DS_Store
 node_modules
-
+nervt.json
+faps-custom-app/index.html
+faps-custom-app/move-to-apache-folder.sh
+bootscript.sh
+commands.txt

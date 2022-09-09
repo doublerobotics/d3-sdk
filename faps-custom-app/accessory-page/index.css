@@ -1,0 +1,57 @@
+body {
+    color: white;
+    font-family: Sans-serif;
+    overflow: hidden;
+}
+
+#content {
+    /* background: rgba(151, 193, 57, 0.5); */
+    background: linear-gradient( rgba(151, 193, 57, 0.4), rgba(151, 193, 57, 0.9));
+      /* background: linear-gradient(to right top, rgba(151, 193, 57, 0.8), rgba(151, 193, 57, 0.8)); */
+    border-radius: 10px;
+    bottom: 40px;
+    left: 40px;
+    overflow: auto;
+    padding: 20px;
+    position: absolute;
+    right: 40px;
+    top: 65%;
+}
+
+input[type=button]{
+    padding: 16px 26px;
+    border-radius: 5px;
+    font-size: large;
+}
+
+#warning {
+    padding: 5px 10px;
+    font-size: large;
+    color: black;
+}
+
+#allowMic, #allowSpeaker {
+    background-color: rgba(0, 256, 0, 0.5);
+    color: black;
+}
+
+#refuseMic, #refuseCam, #confirm, #muteSpeaker {
+    background-color: rgba(256, 0, 0, 0.5);
+    color: black;
+}
+
+table {
+    text-align: center;
+    vertical-align: middle;
+    /*border: 1px solid rgba(255,255,255,0.3);*/
+}
+th:first-child, th:nth-child(2), td:first-child, td:nth-child(2) {
+    border-right: 1px solid rgba(255,255,255,0.3);
+}
+tr {
+    height: 80px;
+}
+td {
+    width: 229px;
+    border-top: 1px solid rgba(255,255,255,0.3);			
+}
