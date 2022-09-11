@@ -42,6 +42,14 @@ When outputting to V4L2, the stream becomes available as a virtual webcam in Jav
 
 [See the Standby Camera example](../standby-camera/)
 
+### OpenCV
+
+If you choose to install OpenCV and want to consume the processed camera stream, you'll need to output via v4l2. If you use either the native video sizes of 720 height or 1080 height, the output format is I420, which you can set in OpenCV with:
+
+	cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('I', '4', '2', '0'))
+
+If you set the video output to a different size or aspect ratio, the interal processing will scale and crop the output and it will be in the YUY2 format. OpenCV can read this format by default, without the above setting.
+
 ### Native WebRTC
 
 The `h264ForWebRTC` output is used in conjuction with our native WebRTC binary.
