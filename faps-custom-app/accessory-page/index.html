@@ -7,20 +7,34 @@
 	<script src="index.js"></script>
 </head>
 <body>
+
+	<script>
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+</script>
+
 	<div id="content">
 		<table>
 			<tr>
 				<th>
+					<div class="section-title">
 					<h1>Mikrofon</h1>
+					<div>
 				</th>
 				<th>
+					<div class="section-title kamera">
 					<h1>Kamera</h1>
+				</div>
 				</th>
 				<th>
+					<div class="section-title Lautsprecher">
 					<h1>Lautsprecher</h1>
+				</div>
 				</th>
 			</tr>
-			<tr>
+			<tr class="tr">
 				<td>
 					<h2 id="micValue"></h2>
 				</td>
@@ -31,15 +45,26 @@
 					<h2 id="speakerValue"></h2>
 				</td>
 			</tr>
-			<tr>
+			<tr class="tr">
 				<td>
 					<input type="button" id="allowMic" value="Erlauben" onclick="allowMic()">
 					<input type="button" id="refuseMic" value="Deaktivieren" onclick="refuseMic()">
 				</td>
-				<td>
-					<input type="button" id="refuseCam" value="Deaktivieren" onclick="refuseCam()">
-					<div type="text" id="warning">Sind Sie sich sicher? Die Verbindung wird getrennt!</div>
-					<input type="button" id="confirm" style="white-space: pre-line" value="Ja, deaktivieren" onclick="confirm()">
+				<td >
+
+
+					<div class="popup" onclick="myFunction()">
+					<input type="button" id="allowSpeaker" value="Deaktivieren
+					" onclick="muteSpeaker()">
+
+					  <span class="popuptext" id="myPopup">Sind Sie sich sicher? Die Verbindung wird getrennt!
+
+
+
+
+				  <input type="button" id="popupbutton" style="white-space: pre-line" value="cancel" onclick="confirm()">
+
+					<input type="button" id="popupbutton" style="white-space: pre-line" value="Ja, deaktivieren" onclick="confirm()">
 				</td>
 				<td>
 					<input type="button" id="allowSpeaker" value="Aktivieren" onclick="allowSpeaker()">
@@ -47,8 +72,7 @@
 				</td>
 			</tr>
 		</table>
-		<!-- <h3>From Sidebar:</h3>
-		<div id="log"></div> -->
+	
 	</div>
 </body>
 </html>
