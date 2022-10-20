@@ -10,21 +10,27 @@ body {
 	user-select: none;
 	text-align: center;
 	vertical-align: middle;
-	height: 1024px;
-  width: 768px;
+
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
 
 
 }
-.background {
+html {
+    position: relative;
+    min-height: : 1024px;
+    min-width: 768px;
+}
+/*.background {
 	width: 100%;
 	width: 100%;
-
 
 
 }
 
 .title{color: white;
-}
+}*/
 
 #section-title{
 	width: 200px;
@@ -39,13 +45,14 @@ body {
 
 .main {
 	border-radius: 0 120px 0 120px ;
-	margin-top: 150px;
-	margin-bottom: : 100px;
-
+	margin-top: 17%;
 	background-color: white;
-  width: 980px;
-	height: 990px;
+	width: 100%;
+	height: 1000px;
 	padding-top: 35px;
+	position: fixed;
+	left: 0px;
+
 }
 
 .content
@@ -237,19 +244,6 @@ width: 21.5%;
 
 .last-button{border-radius: 0px  12px 12px 0px;}
 
-
-
-
-/*.centered {
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-  text-align: center;
-
-}*/
-
-
 data{  margin: auto;
 }
 
@@ -268,22 +262,6 @@ td {
 	vertical-align: middle;
 }
 
-
-/*h4{color: white;
-text-align: center;}*/
-
-/*#example3{
-	width: 150px;
-	height: 25px;
-  border: 2px solid green;
-  padding: 10px;
-  border-radius: 30px 30px 30px 30px;
-	background: green;
-margin: auto;
-linear-gradient( rgba(151, 193, 57, 0.9), rgba(151, 193, 57, 0.5))
-
-}
-*/
 tr {
     height: 80px;}
 
