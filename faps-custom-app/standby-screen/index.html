@@ -13,18 +13,18 @@
   <div class="main">
 	  <div class="content">
 			<!--First table--------------------->
-       <div id="section-title">
+    <div id="section-title">
         	<h2>Netzwerk</h2>
-      	</div>
-     <div class="first-table">
-		  <table class="data" >
+    </div>
+    <div class="first-table">
+		<table class="data" >
 			  <tr>
-	     	<td >
-          <div class="split left">
-			    	<h2>SSID</h2>
-	 </div>
-	 <div class="split right">
-	 </div>
+	     	 <td >
+    <div class="split left">
+			   <h2>SSID</h2>
+	  </div>
+	  <div class="split right">
+	  </div>
 
  </div>
  </td>
@@ -32,11 +32,11 @@
  <tr>
  <td>
 		<div class="split left">
-			<h2>Verbindungsstatus	</h2>
+		 <h2>Verbindungsstatus	</h2>
     </div>
    	</div>
-   <div class="split right">
-   </div>
+    <div class="split right">
+    </div>
 
 	</div>
 	</td>
@@ -66,34 +66,27 @@
 					<div class="split split-right">
 							<button class="GP-button">
               Auf
-								</button>
-								<button class="GP-button ">Ab</button>
-									<button class="GP-button last-button h1">Stop</button>
-
-					</div>
-
-
-</div>
+					   </button>
+						<button class="GP-button ">Ab</button>
+						<button class="GP-button last-button h1">Stop</button>
+   	</div>
+	</div>
 	</td>
 		</tr>
 
 		<tr>
 		<td >
 
-					<div class="split left">
-						<h2>Standfuß	</h2>
-
-					</div>
-
-					</div>
-
-					<div class="split split-right">
+<div class="split left">
+<h2>Standfuß	</h2>
+</div>
+</div>
+		<div class="split split-right">
 							<button class="GP-button2 ">Einfahren</button>
 								<button class="GP-button2 last-button">Ausfahren</button>
 
-					</div>
-
-	</div>
+	 </div>
+</div>
 	</td>
 		</tr>
 
@@ -136,21 +129,6 @@
 	</div>
 </div>
 </div>
-
-
-<script>
-var header = document.getElementById("section-title");
-var btns = header.getElementsByClassName("GP-button");
-for (var i = 0; i < btns.length; i++) {
-btns[i].addEventListener("click", function() {
-var current = document.getElementsByClassName("active");
-if (current.length > 0) {
-current[0].GP-button = current[0].GP-button.replace(" active", ""); }
-this.GP-button += " active";
-});
-}
-</script>
-
 
 </body>
 </html>
