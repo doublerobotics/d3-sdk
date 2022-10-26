@@ -7,31 +7,23 @@
 	<script src="index.js"></script>
 </head>
 <body>
-
-	<script>
-function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-}
-</script>
-
-	<div id="content">
+    <div id="content">
 		<table>
 			<tr>
 				<th>
 					<div class="section-title">
-					<h1>Mikrofon</h1>
+						<h1>Mikrofon</h1>
 					<div>
 				</th>
 				<th>
 					<div class="section-title kamera">
-					<h1>Kamera</h1>
-				</div>
+						<h1>Kamera</h1>
+				    </div>
 				</th>
 				<th>
 					<div class="section-title Lautsprecher">
-					<h1>Lautsprecher</h1>
-				</div>
+					    <h1>Lautsprecher</h1>
+				    </div>
 				</th>
 			</tr>
 			<tr class="tr">
@@ -50,21 +42,12 @@ function myFunction() {
 					<input type="button" id="allowMic" value="Erlauben" onclick="allowMic()">
 					<input type="button" id="refuseMic" value="Deaktivieren" onclick="refuseMic()">
 				</td>
-				<td >
-
-
+				<td>
 					<div class="popup" onclick="myFunction()">
-					<input type="button" id="allowSpeaker" value="Deaktivieren
-					" onclick="muteSpeaker()">
-
-					  <span class="popuptext" id="myPopup">Sind Sie sich sicher? Die Verbindung wird getrennt!
-
-
-
-
-				  <input type="button" id="popupbutton" style="white-space: pre-line" value="cancel" onclick="confirm()">
-
-					<input type="button" id="popupbutton" style="white-space: pre-line" value="Ja, deaktivieren" onclick="confirm()">
+						<input type="button" id="allowSpeaker" value="Deaktivieren" onclick="muteSpeaker()">
+						<span class="popuptext" id="myPopup">Sind Sie sich sicher? Die Verbindung wird getrennt!
+							 <input type="button" id="popupbutton" style="white-space: pre-line" value="cancel" onclick="confirm()">
+							 <input type="button" id="popupbutton" style="white-space: pre-line" value="Ja, deaktivieren" onclick="confirm()">
 				</td>
 				<td>
 					<input type="button" id="allowSpeaker" value="Aktivieren" onclick="allowSpeaker()">
@@ -72,7 +55,6 @@ function myFunction() {
 				</td>
 			</tr>
 		</table>
-	
 	</div>
 </body>
 </html>

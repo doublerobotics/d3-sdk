@@ -13,7 +13,10 @@ let consent = false;
 // function handleMesage(message) {
 // 	log.innerHTML += "<p>" + message.text + "</p>";
 // }
-
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");}
+    
 function initScreen() {
     q("#confirm").hidden = true;
     q("#warning").hidden = true;
@@ -104,4 +107,8 @@ if ("DRDoubleSDK" in window) {
         DRDoubleSDK.sendCommand("mics.requestStatus");
         DRDoubleSDK.sendCommand("api.requestStatus");
     });
+
+    
+
+    
 }

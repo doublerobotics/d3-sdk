@@ -1,9 +1,9 @@
 body {
-    color: white;
-    font-family: Sans-serif;
-    overflow: hidden;
-    min-height: : 1024px;
-    min-width: 768px;
+  color: white;
+  font-family: Sans-serif;
+  overflow: hidden;
+  min-height: 1024px;
+  min-width: 768px;
 }
 
 .popup {
@@ -33,9 +33,9 @@ body {
   border: 1px solid black;
 }
 #popupbutton{width: 50px;
- margin-top: 20px;
-background-color:#97c139;
-width: 40%;}
+  margin-top: 20px;
+  background-color:#97c139;
+  width: 40%;}
 
 .popup .popuptext::after {
   content: "";
@@ -73,8 +73,8 @@ width: 40%;}
 	background: linear-gradient( rgba(151, 193, 57, 0.9), rgba(151, 193, 57, 0.5));;
 	line-height: 50px;
 	position: relative;
- border: 1px solid black;
- padding-bottom: 10px;
+  border: 1px solid black;
+  padding-bottom: 10px;
 }
 .kamera{
   border-radius: 0px 0px 0px 0px;
@@ -85,19 +85,19 @@ width: 40%;}
 
 }
 #content {
-    background:white;
-    border-radius: 10px;
-    bottom: 40px;
-    overflow: auto;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+  background:white;
+  border-radius: 10px;
+  /*bottom: 40px;*/
+  overflow: auto;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 
 input[type=button]{
-    padding: 16px 26px;
-    border-radius: 5px;
-    font-size: large;
+  padding: 16px 26px;
+  border-radius: 5px;
+  font-size: large;
 }
 
 #warning {
@@ -107,55 +107,53 @@ input[type=button]{
 }
 
 #allowMic, #allowSpeaker {
-    background-color: white;
-    border-radius: 10px;
-    color: black;
-    width: 60%;
-    height: 70px;
-    margin-top: 30px;
-
-
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+  width: 60%;
+  height: 70px;
+  margin-top: 30px;
 }
 
 
 #refuseMic, #refuseCam, #confirm, #muteSpeaker {
-    background-color: white;
-    color: black;
-    width: 60%;
-    height: 70px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    height: 70px;
+  background-color: white;
+  color: black;
+  width: 60%;
+  height: 70px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  height: 70px;
 
 }
 
 
 #muteSpeaker2 {
-    background-color: white;
-    color: black;
-    height: 70px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    height: 70px;
+  background-color: white;
+  color: black;
+  height: 70px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  height: 70px;
 
 }
 
 table {
-    text-align: center;
-    vertical-align: middle;
-    width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
 
 }
 th:first-child, th:nth-child(2), td:first-child, td:nth-child(2) {
-    border-right: 1px solid rgba(255,255,255,0.3);
+  border-right: 1px solid rgba(255,255,255,0.3);
 }
 .tr {
-    height: 100px;
-    background-color: #97c139;
+  height: 100px;
+  background-color: #97c139;
 
 }
 td {
-    border-top: 1px solid rgba(255,255,255,0.3);
-    width: 33%;
-    border: 1px solid black;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  width: 33%;
+  border: 1px solid black;
 }
