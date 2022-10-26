@@ -1,38 +1,39 @@
 /* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}
-{border-collapse:collapse;border-spacing:0}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0; font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:none;}
+table{border-collapse:collapse;border-spacing:0;}
 
 body {
-
 	color: black;
 	font-family: "FreeSans", sans-serif;
 	font-size:24px;
 	user-select: none;
 	text-align: center;
 	vertical-align: middle;
-
-	display: table;
+    display: table;
 	margin-left: auto;
 	margin-right: auto;
-
-
 }
+
 html {
-    position: relative;
+    position:relative;
     min-height:1024px;
     min-width: 768px;
 }
 
-
 #section-title{
 	width: 200px;
 	height: 50px;
-  border-radius: 0px 30px 0px 0px;
+    border-radius: 0px 30px 0px 0px;
 	background: linear-gradient( rgba(151, 193, 57, 0.9), rgba(151, 193, 57, 0.5));
 	line-height: 50px;
 	position: relative;
- border: 1px solid black;
- border-bottom-style: none;
+    border: 1px solid black;
+    border-bottom-style: none;
 }
 
 .main {
@@ -44,112 +45,103 @@ html {
 	padding-top: 35px;
 	position: fixed;
 	left: 0px;
-
 }
 
-.content
-{padding-top: 70px;
+.content{
+	padding-top: 70px;
 	padding-left:120px;
 	padding-right: 120px;
 	margin-bottom: 40px;
 }
 
 .first-table {
-
-	background: white;
-	border-radius: 0 80px 0 0;
- padding-bottom: 20px;
- padding-top: 20px;
- border: 1px solid;
- margin-bottom: 45px;
- padding-left: 25px;
- padding-right: 25px;
-
+    background: white;
+    border-radius: 0 80px 0 0;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border: 1px solid;
+    margin-bottom: 45px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .second-table {
-
 	background: white;
 	border-radius: 0 0 0 0;
- padding-bottom: 20px;
- padding-top: 20px;
- border: 1px solid;
- margin-bottom: 45px;
- padding-left: 25px;
- padding-right: 25px;
-
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border: 1px solid;
+    margin-bottom: 45px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
-.third-table {
 
-	background: white;
-	border-radius: 0 0 0 80px;
- padding-bottom:0px;
- padding-top: 65px;
- border: 1px solid;
- margin-bottom: 20px;
-padding-left: 25px;
-padding-right: 25px;
+.third-table {
+    background: white;
+    border-radius: 0 0 0 80px;
+    padding-bottom:0px;
+    padding-top: 65px;
+    border: 1px solid;
+    margin-bottom: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .split {
-  height: 60px;
-  width:30%;
-	float: left;
-	display:inline-block
-	text-align:center;
+    height: 60px;
+    width:30%;
+    float: left;
+    text-align:center;
 }
 
 .left {
-	  line-height: 60px;
+	line-height: 60px;
 	width: 33%;
-  left: 0;
-  background-color: #111;
+    left: 0;
+    background-color: #111;
 	border-radius: 12px 0px 0px 12px;
 	background: linear-gradient( rgba(151, 193, 57, 0.9), rgba(151, 193, 57, 0.5));
-border: 1px solid black;
-vertical-alin: middle;
-margin-right: 7px;
-margin-left: 30px;
+    border: 1px solid black;
+    vertical-align: middle;
+    margin-right: 7px;
+    margin-left: 30px;
 }
 
 .right {
 	width: 60%;
-  right: 0;
+    right: 0;
 	border-radius: 0px 12px 12px 0px;
 	background: white;
 	border: 1px solid black;
-
 }
+
 .split-right{
 	width: 60%;
-  right: 0;
+    right: 0;
 	border-radius: 0px 12px 12px 0px;
 	background: white;
 	margin-left: 0px;
-
 }
-
 
 .GP-button{
-width: 31.5%;
-height: 62px;
-font-size: 24px;
-display: inline-block;
-display: block;
-margin-left:0px;
-margin-right: 7px;
-float: left;
-background-color: white;
-color: black;
-border: 1px solid black;
-transition-duration: 0.4s;
+   width: 31.5%;
+   height: 62px;
+   font-size: 24px;
+   display: block;
+   margin-left:0px;
+   margin-right: 7px;
+   float: left;
+   background-color: white;
+   color: black;
+   border: 1px solid black;
+   transition-duration: 0.4s;
 
 }
+
 .GP-button2{
 	width: 48%;
 	height: 62px;
 	font-size: 24px;
-	display: inline-block;
 	display: block;
 	margin-left:0px;
 	margin-right: 7px;
@@ -158,54 +150,50 @@ transition-duration: 0.4s;
 	color: black;
 	border: 1px solid black;
 	transition-duration: 0.4s;
-	}
+}
 
-	.GP-button:hover {background-color: #97c139;}
+.GP-button:hover{
+	background-color: #97c139;
+}
 
+.GP-button2:hover{
+	background-color: #97c139;
+}
 
-	.GP-button2:hover {background-color: #97c139;}
+.GP-button2:active{
+	box-shadow: 0 1px #97c139;
+	transform: translateY(0px);
+}
 
-	.GP-button2:active {
-	  box-shadow: 0 1px #97c139;
-	  transform: translateY(0px);
-	}
-	.GP-button:active {
-	  box-shadow: 0 5px #97c139;
-	  transform: translateY(0px);
-	}
+.GP-button:active{
+	box-shadow: 0 5px #97c139;
+	transform: translateY(0px);
+}
 
-
-
-.left-button {
-
-margin-right: 0px;
-margin-left: 0px;
-margin-left: 8px;
-width: 21.5%;
-height: 70px;
-margin-left: 45px;
-
+.left-button{
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-left: 8px;
+    width: 21.5%;
+    height: 70px;
+    margin-left: 45px;
 }
 
 .middle-button{
 	border: 1px solid black;
-
-width: 21.5%;
+    width: 21.5%;
 	height: 70px;
 	margin-left: 9px;
 	background: linear-gradient( rgba(151, 193, 57, 0.9), rgba(151, 193, 57, 0.5));
 }
 
-.last-button{border-radius: 0px  12px 12px 0px;}
 
-data{  margin: auto;
+.last-button{
+	border-radius: 0px  12px 12px 0px;
 }
 
-h1 {
-	font-size: 38px;
-	font-weight: bold;
-	margin-bottom: 60px;
-	text-align: center;
+data{
+	margin:auto;
 }
 
 td {
@@ -215,7 +203,8 @@ td {
 }
 
 tr {
-    height: 80px;}
+    height: 80px;
+}
 
 #chargingDiv {
 	border-radius: 20px;
